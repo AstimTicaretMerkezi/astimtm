@@ -37,7 +37,7 @@ export default function StatsPanel() {
   ];
 
   return (
-    <section className="md:col-span-4 border-b border-r border-[#111111] p-[2.5rem] bg-[#111111] text-[#F4F3F0] flex flex-col justify-between">
+    <section className="md:col-span-4 border-b border-r border-[#111111] p-[1rem] md:p-[2.5rem] bg-[#111111] text-[#F4F3F0] flex flex-col justify-between">
       {/* Top */}
       <div>
         <h2

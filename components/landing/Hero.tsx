@@ -21,7 +21,8 @@ export default function Hero() {
   return (
     <section className="col-span-12 border-b border-[#111111] relative overflow-hidden flex flex-col md:flex-row">
       {/* Left — Text */}
-      <div className="w-full md:w-1/2 p-[2.5rem] flex flex-col justify-center border-r border-[#111111] bg-[#F4F3F0] relative z-10">
+      <div className="w-full md:w-1/2 p-[1rem] md:p-[2.5rem] flex flex-col justify-center border-r border-[#111111] bg-[#F4F3F0] relative z-10">
+
         {/* Status label */}
         <div className="flex items-center gap-2 mb-[32px]">
           <span className="w-3 h-3 bg-[#FF4A00] animate-pulse flex-shrink-0" />
@@ -55,36 +56,41 @@ export default function Hero() {
           kalbine hoş geldiniz.
         </p>
 
-        {/* CTA + slide indicators */}
-        <div className="flex flex-col gap-[16px] mt-auto">
+        {/* CTA butonları */}
+        <div className="flex flex-col sm:flex-row gap-[8px] mt-auto">
           <a
             href="#dukkanlar"
-            className="bg-[#111111] text-[#F4F3F0] px-10 py-5 text-[12px] leading-[16px] font-[700] uppercase hover:bg-[#FF4A00] transition-none flex items-center gap-2 self-start"
+            className="bg-[#111111] text-[#F4F3F0] px-10 py-5 text-[12px] leading-[16px] font-[700] uppercase hover:bg-[#FF4A00] transition-none flex items-center gap-2"
+            style={{ fontFamily: "var(--font-space-mono)" }}
+          >
+            HABERDAR OL →
+          </a>
+          <a
+            href="#dukkanlar"
+            className="border border-[#111111] text-[#111111] px-10 py-5 text-[12px] leading-[16px] font-[700] uppercase hover:bg-[#111111] hover:text-[#F4F3F0] transition-none flex items-center gap-2"
             style={{ fontFamily: "var(--font-space-mono)" }}
           >
             DÜKKANLARIMIZ →
           </a>
+        </div>
 
-          {/* Dot indicators */}
-          <div className="flex items-center gap-2">
-            {heroImages.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`h-[2px] transition-none ${
-                  i === current
-                    ? "w-8 bg-[#FF4A00]"
-                    : "w-4 bg-[#111111] opacity-30"
-                }`}
-                aria-label={`Görsel ${i + 1}`}
-              />
-            ))}
-          </div>
+        {/* Dot indicators */}
+        <div className="flex items-center gap-2 mt-[16px]">
+          {heroImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`h-[2px] transition-none ${
+                i === current ? "w-8 bg-[#FF4A00]" : "w-4 bg-[#111111] opacity-30"
+              }`}
+              aria-label={`Görsel ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
 
       {/* Right — Sliding images */}
-      <div className="w-full md:w-1/2 min-h-[500px] relative bg-[#EFEEEB]">
+      <div className="w-full md:w-1/2 min-h-[300px] md:min-h-[500px] relative bg-[#EFEEEB]">
         <div className="absolute inset-0 bg-[#111111]/10 z-10 pointer-events-none" />
 
         {heroImages.map((img, i) => (
@@ -107,17 +113,17 @@ export default function Hero() {
           </div>
         ))}
 
-        {/* Fallback — sadece görsel yokken görünür */}
+        {/* Fallback */}
         <div className="absolute inset-0 flex items-center justify-center z-0">
-          <div className="text-center">
+          <div className="text-center p-4">
             <div
-              className="text-[clamp(32px,4vw,56px)] font-[900] tracking-[-0.04em] text-[#c4c7c7] uppercase"
+              className="text-[clamp(24px,4vw,48px)] font-[900] tracking-[-0.04em] text-[#c4c7c7] uppercase"
               style={{ fontFamily: "var(--font-hanken)" }}
             >
               FOTOĞRAF
             </div>
             <div
-              className="text-[12px] font-[700] text-[#c4c7c7] mt-2 uppercase"
+              className="text-[11px] font-[700] text-[#c4c7c7] mt-2 uppercase"
               style={{ fontFamily: "var(--font-space-mono)" }}
             >
               hero-main.png / hero-main2.png
