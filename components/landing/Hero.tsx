@@ -1,6 +1,23 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+const heroImages = [
+  { src: "/images/hero/hero-main.png",  alt: "ASTİM Ticaret Merkezi" },
+  { src: "/images/hero/hero-main2.png", alt: "ASTİM Ticaret Merkezi hava görüntüsü" },
+];
 
 export default function Hero() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % heroImages.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="col-span-12 border-b border-[#111111] relative overflow-hidden flex flex-col md:flex-row">
       {/* Left — Text */}
@@ -38,29 +55,59 @@ export default function Hero() {
           kalbine hoş geldiniz.
         </p>
 
-        {/* CTA */}
-        <div className="flex gap-[16px] mt-auto flex-wrap">
+        {/* CTA + slide indicators */}
+        <div className="flex flex-col gap-[16px] mt-auto">
           <a
             href="#dukkanlar"
-            className="bg-[#111111] text-[#F4F3F0] px-10 py-5 text-[12px] leading-[16px] font-[700] uppercase hover:bg-[#FF4A00] transition-none flex items-center gap-2"
+            className="bg-[#111111] text-[#F4F3F0] px-10 py-5 text-[12px] leading-[16px] font-[700] uppercase hover:bg-[#FF4A00] transition-none flex items-center gap-2 self-start"
             style={{ fontFamily: "var(--font-space-mono)" }}
           >
             DÜKKANLARIMIZ →
           </a>
+
+          {/* Dot indicators */}
+          <div className="flex items-center gap-2">
+            {heroImages.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`h-[2px] transition-none ${
+                  i === current
+                    ? "w-8 bg-[#FF4A00]"
+                    : "w-4 bg-[#111111] opacity-30"
+                }`}
+                aria-label={`Görsel ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Right — Hero image */}
+      {/* Right — Sliding images */}
       <div className="w-full md:w-1/2 min-h-[500px] relative bg-[#EFEEEB]">
         <div className="absolute inset-0 bg-[#111111]/10 z-10 pointer-events-none" />
-        <Image
-          src="/images/hero/hero-main.jpg"
-          alt="ASTİM Ticaret Merkezi"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        {/* Fallback when no image */}
+
+        {heroImages.map((img, i) => (
+          <div
+            key={img.src}
+            className="absolute inset-0"
+            style={{
+              opacity: i === current ? 1 : 0,
+              transition: "opacity 1.2s ease-in-out",
+              zIndex: i === current ? 2 : 1,
+            }}
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              className="object-cover object-center"
+              priority={i === 0}
+            />
+          </div>
+        ))}
+
+        {/* Fallback — sadece görsel yokken görünür */}
         <div className="absolute inset-0 flex items-center justify-center z-0">
           <div className="text-center">
             <div
@@ -73,10 +120,11 @@ export default function Hero() {
               className="text-[12px] font-[700] text-[#c4c7c7] mt-2 uppercase"
               style={{ fontFamily: "var(--font-space-mono)" }}
             >
-              public/images/hero/hero-main.jpg
+              hero-main.png / hero-main2.png
             </div>
           </div>
         </div>
+
         {/* REF badge */}
         <div
           className="absolute bottom-0 right-0 p-4 bg-[#111111] text-[#F4F3F0] text-[12px] leading-[16px] font-[700] z-20"
