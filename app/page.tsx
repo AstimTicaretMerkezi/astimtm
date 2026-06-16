@@ -9,15 +9,17 @@ import Footer from "@/components/landing/Footer";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Navbar />
-      <Hero />
-      <StatsPanel />
-      <Gallery />
-      <Ticker />
-      <ShopGrid />
-      <HowToGet />
+      <main className="grid grid-cols-1 md:grid-cols-12 w-full">
+        <Hero />
+        <StatsPanel />
+        <Gallery />
+        <Ticker />
+        <ShopGrid />
+        <HowToGet />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

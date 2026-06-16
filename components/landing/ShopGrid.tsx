@@ -137,7 +137,7 @@ export default function ShopGrid() {
   const blocks = shopsData.blocks as Record<string, Block>;
 
   return (
-    <section id="dukkanlar" className="border-b border-[#111111]">
+    <section id="dukkanlar" className="col-span-12 border-b border-[#111111]">
       {/* Section header */}
       <div className="border-b border-[#111111] px-6 py-4 flex items-baseline justify-between">
         <span
@@ -155,7 +155,7 @@ export default function ShopGrid() {
       </div>
 
       {Object.entries(blocks).map(([blockKey, block]) => (
-        <div key={blockKey} className="border-b border-[#111111] last:border-b-0">
+        <div key={blockKey} className="border-b border-[#111111]">
           {/* Block header */}
           <div className="bg-[#111111] px-6 py-4 flex items-center justify-between">
             <span

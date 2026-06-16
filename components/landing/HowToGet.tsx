@@ -1,6 +1,6 @@
 export default function HowToGet() {
   return (
-    <section id="konum" className="border-b border-[#111111]">
+    <section id="konum" className="col-span-12 border-b border-[#111111]">
       {/* Section header */}
       <div className="border-b border-[#111111] px-6 py-4 flex items-baseline justify-between">
         <span

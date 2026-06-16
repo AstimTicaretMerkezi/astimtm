@@ -1,98 +1,88 @@
+import Image from "next/image";
+
+const cards = [
+  {
+    id: "001",
+    total: "6",
+    label: "ASTİM TİCARET MERKEZİ SANAL TUR",
+    title: "GALERİ",
+    location: "ÇANAKKALE",
+    href: "#galeri",
+    img: "/images/gallery/g-01.jpg",
+    imgAlt: "ASTİM Ticaret Merkezi galerisi",
+  },
+  {
+    id: "002",
+    total: "10",
+    label: "YOL TARİFİ ALMAK İÇİN DOKUNUN",
+    title: "NASIL GELİNİR?",
+    location: "MERKEZ",
+    href: "#konum",
+    img: "/images/gallery/g-02.jpg",
+    imgAlt: "ASTİM Ticaret Merkezi konumu",
+  },
+];
+
 export default function Gallery() {
-  const cards = [
-    {
-      id: "001",
-      label: "ASTİM TİCARET MERKEZİ SANAL TUR",
-      title: "GALERİ",
-      location: "ÇANAKKALE",
-      total: "6",
-      href: "#galeri",
-    },
-    {
-      id: "002",
-      label: "YOL TARİFİ ALMAK İÇİN DOKUNUN",
-      title: "NASIL GELİNİR?",
-      location: "MERKEZ",
-      total: "10",
-      href: "#konum",
-    },
-  ];
-
   return (
-    <section id="galeri" className="border-b border-[#111111]">
-      {/* Section header */}
-      <div className="border-b border-[#111111] px-6 py-4 flex items-baseline justify-between">
-        <span
-          className="text-[10px] tracking-[0.2em] uppercase text-[#111111]"
-          style={{ fontFamily: "var(--font-space-mono)" }}
-        >
-          GALERİ & KONUM
-        </span>
-        <span
-          className="text-[9px] tracking-[0.1em] uppercase text-[#747878]"
-          style={{ fontFamily: "var(--font-space-mono)" }}
-        >
-          ATC — 2024
-        </span>
-      </div>
-
-      {/* Gallery images */}
-      <div className="grid grid-cols-2 md:grid-cols-4 border-b border-[#111111]">
-        {[1, 2, 3, 4].map((i) => (
-          <div
-            key={i}
-            className="relative overflow-hidden aspect-[4/3] bg-[#EFEEEB] border-r border-[#111111] last:border-r-0"
-          >
-            <div className="absolute inset-0 flex items-end p-3">
-              <span
-                className="text-[9px] tracking-[0.1em] uppercase text-[#c4c7c7]"
-                style={{ fontFamily: "var(--font-space-mono)" }}
-              >
-                gallery/g-0{i}.jpg
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Cards row */}
-      <div className="grid grid-cols-1 md:grid-cols-2">
+    <section id="galeri" className="md:col-span-8 border-b border-[#111111] bg-[#F4F3F0]">
+      <div className="grid grid-cols-1 md:grid-cols-2 h-full">
         {cards.map((card, idx) => (
           <a
             key={card.id}
             href={card.href}
-            className={`p-8 md:p-10 flex flex-col justify-between gap-6 group hover:bg-[#111111] transition-none border-b md:border-b-0 ${
+            className={`flex flex-col group ${
               idx === 0 ? "border-b md:border-b-0 md:border-r border-[#111111]" : ""
             }`}
           >
-            <div>
-              <div
-                className="text-[#FF4A00] text-[9px] tracking-[0.2em] uppercase mb-3 group-hover:text-[#FF4A00]"
-                style={{ fontFamily: "var(--font-space-mono)" }}
-              >
-                {card.label}
+            {/* Image */}
+            <div className="p-6 border-b border-[#111111]">
+              <div className="relative w-full aspect-[1.9] bg-[#EFEEEB] overflow-hidden">
+                <Image
+                  src={card.img}
+                  alt={card.imgAlt}
+                  fill
+                  className="object-cover grayscale"
+                />
+                {/* Fallback */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span
+                    className="text-[12px] font-[700] text-[#c4c7c7] uppercase"
+                    style={{ fontFamily: "var(--font-space-mono)" }}
+                  >
+                    {card.img.replace("/images/", "")}
+                  </span>
+                </div>
               </div>
-              <h3
-                className="text-[clamp(36px,5vw,56px)] font-black tracking-[-0.03em] uppercase leading-none text-[#111111] group-hover:text-[#F4F3F0]"
-                style={{ fontFamily: "var(--font-hanken)" }}
-              >
-                {card.title}
-              </h3>
-              <div className="border-t border-[#111111] group-hover:border-[#2f312f] mt-4" />
             </div>
-            <div className="flex items-center justify-between">
-              <span
-                className="text-[9px] tracking-[0.15em] uppercase text-[#747878] group-hover:text-[#747878]"
+
+            {/* Text */}
+            <div className="p-6 flex-grow flex flex-col justify-between group-hover:bg-[#111111] transition-none">
+              <div>
+                <p
+                  className="text-[12px] leading-[16px] font-[700] text-[#FF4A00] mb-2 uppercase"
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                >
+                  {card.label}
+                </p>
+                <h3
+                  className="text-[32px] md:text-[48px] leading-[32px] md:leading-[48px] font-[800] tracking-[-0.02em] uppercase mb-4 group-hover:text-[#F4F3F0] transition-none"
+                  style={{ fontFamily: "var(--font-hanken)" }}
+                >
+                  {card.title}
+                </h3>
+              </div>
+              <div
+                className="flex justify-between text-[12px] leading-[16px] font-[700] border-t border-[#111111] group-hover:border-[#F4F3F0]/20 pt-4 mt-4 transition-none"
                 style={{ fontFamily: "var(--font-space-mono)" }}
               >
-                LOCATION: {card.location}
-              </span>
-              <span
-                className="text-[9px] tracking-[0.15em] uppercase text-[#747878] group-hover:text-[#747878]"
-                style={{ fontFamily: "var(--font-space-mono)" }}
-              >
-                ID: {card.id}/{card.total}
-              </span>
+                <span className="group-hover:text-[#F4F3F0]/60 transition-none">
+                  LOCATION: {card.location}
+                </span>
+                <span className="group-hover:text-[#F4F3F0]/60 transition-none">
+                  ID: {card.id}/{card.total}
+                </span>
+              </div>
             </div>
           </a>
         ))}
