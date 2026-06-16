@@ -1,0 +1,48 @@
+{
+  "blocks": {
+    "A": {
+      "label": "A Blok",
+      "shops": [
+        { "id": "A-01", "no": 1, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "A-02", "no": 2, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "A-03", "no": 3, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "A-04", "no": 4, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "A-05", "no": 5, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false }
+      ]
+    },
+    "B": {
+      "label": "B Blok",
+      "shops": [
+        { "id": "B-01", "no": 1, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-02", "no": 2, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-03", "no": 3, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-04", "no": 4, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-05", "no": 5, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-06", "no": 6, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-07", "no": 7, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-08", "no": 8, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-09", "no": 9, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-10", "no": 10, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-11", "no": 11, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "B-12", "no": 12, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false }
+      ]
+    },
+    "C": {
+      "label": "C Blok",
+      "shops": [
+        { "id": "C-01", "no": 1, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-02", "no": 2, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-03", "no": 3, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-04", "no": 4, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-05", "no": 5, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-06", "no": 6, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-07", "no": 7, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-08", "no": 8, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-09", "no": 9, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-10", "no": 10, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-11", "no": 11, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false },
+        { "id": "C-12", "no": 12, "businessName": null, "ownerName": null, "category": null, "logo": null, "phone": null, "website": null, "instagram": null, "description": null, "isActive": false }
+      ]
+    }
+  }
+}
