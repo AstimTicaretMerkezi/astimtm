@@ -19,7 +19,7 @@ export default function HowToGet() {
 
       <div className="grid grid-cols-1 md:grid-cols-2">
         {/* Left — Address */}
-        <div className="p-[1rem] md:p-[2.5rem] flex flex-col justify-between gap-8 border-b md:border-b-0 md:border-r border-[#111111]">
+        <div className="p-[2rem] md:p-[2.5rem] flex flex-col justify-between gap-8 border-b md:border-b-0 md:border-r border-[#111111]">
           <div>
             <div
               className="text-[#FF4A00] text-[9px] tracking-[0.2em] uppercase mb-4"

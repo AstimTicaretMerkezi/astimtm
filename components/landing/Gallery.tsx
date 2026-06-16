@@ -33,24 +33,16 @@ export default function Gallery() {
         {photos.map((photo, i) => (
           <div
             key={photo.src}
-            className={`relative aspect-[1.6] bg-[#EFEEEB] overflow-hidden ${
-              i < photos.length - 1 ? "border-r border-[#111111]" : ""
-            }`}
+            className={`p-6 bg-[#F4F3F0] ${i < 2 ? "border-r border-[#111111]" : ""}`}
           >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              fill
-              className="object-cover grayscale"
-            />
-            {/* Foto numarası — görsel yokken görünür */}
-            <div className="absolute bottom-0 left-0 right-0 p-2 flex justify-end pointer-events-none">
-              <span
-                className="text-[9px] font-[700] text-[#c4c7c7] uppercase"
-                style={{ fontFamily: "var(--font-space-mono)" }}
-              >
-                G-0{i + 1}
-              </span>
+            <div className="relative aspect-[1.6] bg-[#EFEEEB] overflow-hidden">
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="(max-width: 768px) 33vw, 27vw"
+                className="object-cover grayscale"
+              />
             </div>
           </div>
         ))}
@@ -62,7 +54,7 @@ export default function Gallery() {
           <a
             key={card.id}
             href={card.href}
-            className={`p-6 flex flex-col justify-between gap-4 group hover:bg-[#111111] transition-none ${
+            className={`p-8 md:p-10 min-h-[220px] md:min-h-[260px] flex flex-col justify-between gap-4 group hover:bg-[#111111] transition-none ${
               idx === 0 ? "border-b md:border-b-0 md:border-r border-[#111111]" : ""
             }`}
           >

@@ -21,7 +21,7 @@ export default function Hero() {
   return (
     <section className="col-span-12 border-b border-[#111111] relative overflow-hidden flex flex-col md:flex-row">
       {/* Left — Text */}
-      <div className="w-full md:w-1/2 p-[1rem] md:p-[2.5rem] flex flex-col justify-center border-r border-[#111111] bg-[#F4F3F0] relative z-10">
+      <div className="w-full md:w-1/2 p-[2rem] md:p-[2.5rem] flex flex-col justify-center border-r border-[#111111] bg-[#F4F3F0] relative z-10">
 
         {/* Status label */}
         <div className="flex items-center gap-2 mb-[32px]">
@@ -57,35 +57,14 @@ export default function Hero() {
         </p>
 
         {/* CTA butonları */}
-        <div className="flex flex-col sm:flex-row gap-[8px] mt-auto">
+        <div className="flex flex-col gap-[12px] mt-auto">
           <a
-            href="#dukkanlar"
-            className="bg-[#111111] text-[#F4F3F0] px-10 py-5 text-[12px] leading-[16px] font-[700] uppercase hover:bg-[#FF4A00] transition-none flex items-center gap-2"
+            href="#haberdar"
+            className="bg-[#111111] text-[#F4F3F0] px-10 py-[18px] text-[12px] leading-[16px] font-[700] uppercase hover:bg-[#FF4A00] transition-none inline-flex items-center gap-3 self-start"
             style={{ fontFamily: "var(--font-space-mono)" }}
           >
             HABERDAR OL →
           </a>
-          <a
-            href="#dukkanlar"
-            className="border border-[#111111] text-[#111111] px-10 py-5 text-[12px] leading-[16px] font-[700] uppercase hover:bg-[#111111] hover:text-[#F4F3F0] transition-none flex items-center gap-2"
-            style={{ fontFamily: "var(--font-space-mono)" }}
-          >
-            DÜKKANLARIMIZ →
-          </a>
-        </div>
-
-        {/* Dot indicators */}
-        <div className="flex items-center gap-2 mt-[16px]">
-          {heroImages.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`h-[2px] transition-none ${
-                i === current ? "w-8 bg-[#FF4A00]" : "w-4 bg-[#111111] opacity-30"
-              }`}
-              aria-label={`Görsel ${i + 1}`}
-            />
-          ))}
         </div>
       </div>
 
@@ -107,6 +86,7 @@ export default function Hero() {
               src={img.src}
               alt={img.alt}
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover object-center"
               priority={i === 0}
             />

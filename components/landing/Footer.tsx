@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-[#111111] text-[#F4F3F0] grid grid-cols-1 md:grid-cols-2 w-full p-[1rem] md:p-[2.5rem] gap-[32px] border-t border-[#F4F3F0]">
+    <footer className="bg-[#111111] text-[#F4F3F0] grid grid-cols-1 md:grid-cols-2 w-full p-[2rem] md:p-[2.5rem] gap-[32px] border-t border-[#F4F3F0]">
       {/* Left — Brand */}
       <div className="flex flex-col justify-between gap-[32px]">
         <div>
