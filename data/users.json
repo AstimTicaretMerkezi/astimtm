@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "id": "u-001",
+      "name": "AstimAdmin",
+      "email": "admin@astim.com",
+      "passwordHash": "$2b$12$vnSeejxc5f/4xAc5EosZAe5FeprWMH.9ljPgdeyUQ8F7dT7z3cSkC",
+      "role": "admin",
+      "shopId": null,
+      "createdAt": "2026-06-17"
+    }
+  ]
+}
