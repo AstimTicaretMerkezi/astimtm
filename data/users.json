@@ -6,7 +6,7 @@
       "email": "admin@astim.com",
       "passwordHash": "$2b$12$pg1FObjrZMFNcIOpcsCmlu9Z1dLxzXELAqoAdLswqQ6gCHBlJpReG",
       "role": "admin",
-      "shopId": null,
+      "atolyeId": null,
       "createdAt": "2026-06-17"
     }
   ]
