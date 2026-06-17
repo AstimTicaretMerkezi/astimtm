@@ -27,7 +27,7 @@ const cards = [
 
 export default function Gallery() {
   return (
-    <section id="galeri" className="md:col-span-8 border-b border-[#111111] bg-[#F4F3F0]">
+    <section id="galeri" className="md:col-span-12 border-b border-[#111111] bg-[#F4F3F0]">
       {/* Fotoğraf şeridi — 3 eşit kolon */}
       <div className="grid grid-cols-3 border-b border-[#111111]">
         {photos.map((photo, i) => (

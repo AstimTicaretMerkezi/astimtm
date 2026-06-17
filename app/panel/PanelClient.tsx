@@ -65,7 +65,7 @@ function serializeWorkingHours(hours: WorkingHoursMap): string {
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type AtolyeData = {
-  id: string;
+  subId: number;
   businessName: string | null;
   ownerName: string | null;
   category: string | null;
@@ -78,6 +78,7 @@ type AtolyeData = {
   taxNumber: string | null;
   address: string | null;
   workingHours: string | null;
+  brands: string[];
   isActive: boolean;
 };
 
@@ -122,9 +123,18 @@ function AtolyeEditModal({
   const [workingHours, setWorkingHours] = useState<WorkingHoursMap>(() =>
     parseWorkingHours(atolye?.workingHours)
   );
+  const [brands, setBrands] = useState<string[]>(atolye?.brands ?? []);
+  const [brandInput, setBrandInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
+
+  function addBrand() {
+    const val = brandInput.trim();
+    if (!val || brands.includes(val)) return;
+    setBrands((b) => [...b, val]);
+    setBrandInput("");
+  }
 
   const handleKey = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") onClose();
@@ -174,6 +184,7 @@ function AtolyeEditModal({
         ...form,
         logo,
         workingHours: serializeWorkingHours(workingHours),
+        brands,
       }),
     });
 
@@ -326,6 +337,52 @@ function AtolyeEditModal({
                     </div>
                   );
                 })}
+              </div>
+            </div>
+
+            {/* MARKALAR / DİSTRİBÜTÖRLER */}
+            <div className="border-b border-[#111111] px-6 py-4 flex flex-col gap-3">
+              <label className="text-[10px] font-[700] tracking-[0.15em] uppercase text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>
+                MARKALAR / DİSTRİBÜTÖRLER
+              </label>
+              {brands.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {brands.map((brand) => (
+                    <span
+                      key={brand}
+                      className="flex items-center gap-2 border border-[#111111] px-3 py-1 text-[12px] font-[700]"
+                      style={{ fontFamily: "var(--font-space-mono)" }}
+                    >
+                      {brand}
+                      <button
+                        type="button"
+                        onClick={() => setBrands((b) => b.filter((x) => x !== brand))}
+                        className="text-[#c4c7c7] hover:text-[#FF4A00] leading-none transition-none"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Marka veya distribütör adı..."
+                  value={brandInput}
+                  onChange={(e) => setBrandInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addBrand(); } }}
+                  className="flex-1 border border-[#111111] bg-transparent px-3 py-2 text-[13px] outline-none focus:border-[#FF4A00]"
+                  style={{ fontFamily: "var(--font-inter)" }}
+                />
+                <button
+                  type="button"
+                  onClick={addBrand}
+                  className="bg-[#111111] text-[#F4F3F0] px-4 py-2 text-[12px] font-[700] hover:bg-[#FF4A00] transition-none"
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                >
+                  + EKLE
+                </button>
               </div>
             </div>
 

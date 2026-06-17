@@ -1,4 +1,4 @@
-import { getUsers } from "@/lib/github";
+import { getUsers, getAtolyeler, allFirmIds } from "@/lib/github";
 import { notFound } from "next/navigation";
 import EditUserForm from "./EditUserForm";
 import Link from "next/link";
@@ -7,9 +7,11 @@ export const dynamic = "force-dynamic";
 
 export default async function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const { users } = await getUsers();
+  const [{ users }, { atolyeler }] = await Promise.all([getUsers(), getAtolyeler()]);
   const user = users.find((u) => u.id === id);
   if (!user) notFound();
+
+  const firmIds = allFirmIds(atolyeler.blocks);
 
   return (
     <div className="flex flex-col gap-8 max-w-lg">
@@ -24,7 +26,7 @@ export default async function EditUserPage({ params }: { params: Promise<{ id: s
           KULLANICI DÜZENLE
         </h1>
       </div>
-      <EditUserForm user={user} />
+      <EditUserForm user={user} firmIds={firmIds} />
     </div>
   );
 }

@@ -9,13 +9,7 @@ const ROLES = [
   { value: "mülk-sahibi", label: "Mülk Sahibi" },
 ];
 
-const TUM_ATOLYELER = [
-  ...Array.from({ length: 5 }, (_, i) => `A-${String(i + 1).padStart(2, "0")}`),
-  ...Array.from({ length: 12 }, (_, i) => `B-${String(i + 1).padStart(2, "0")}`),
-  ...Array.from({ length: 12 }, (_, i) => `C-${String(i + 1).padStart(2, "0")}`),
-];
-
-export default function EditUserForm({ user }: { user: User }) {
+export default function EditUserForm({ user, firmIds }: { user: User; firmIds: string[] }) {
   const router = useRouter();
   const [form, setForm] = useState({
     name: user.name,
@@ -67,7 +61,10 @@ export default function EditUserForm({ user }: { user: User }) {
         <div className="relative">
           <input type={showPassword ? "text" : "password"} placeholder="Değiştirmek için yaz" value={form.password} onChange={(e) => set("password", e.target.value)} className="w-full border border-[#111111] bg-transparent px-4 py-3 pr-12 text-[14px] outline-none focus:border-[#FF4A00]" style={{ fontFamily: "var(--font-inter)" }} />
           <button type="button" onClick={() => setShowPassword((v) => !v)} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#747878] hover:text-[#111111]">
-            {showPassword ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg> : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>}
+            {showPassword
+              ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            }
           </button>
         </div>
       </div>
@@ -81,11 +78,22 @@ export default function EditUserForm({ user }: { user: User }) {
             </select>
           </div>
           <div className="border-b border-[#111111] p-6 flex flex-col gap-2">
-            <label className="text-[10px] font-[700] tracking-[0.15em] uppercase text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>ATÖLYE</label>
-            <select value={form.atolyeId} onChange={(e) => set("atolyeId", e.target.value)} className="border border-[#111111] bg-[#F4F3F0] px-4 py-3 text-[14px] outline-none focus:border-[#FF4A00]" style={{ fontFamily: "var(--font-inter)" }}>
-              <option value="">— Atölye seçilmedi —</option>
-              {TUM_ATOLYELER.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
+            <label className="text-[10px] font-[700] tracking-[0.15em] uppercase text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>FİRMA (ATÖLYE)</label>
+            {firmIds.length === 0 ? (
+              <p className="text-[12px] text-[#c4c7c7]" style={{ fontFamily: "var(--font-space-mono)" }}>
+                Henüz firma eklenmemiş. Atölye yönetiminden firma ekleyin.
+              </p>
+            ) : (
+              <select value={form.atolyeId} onChange={(e) => set("atolyeId", e.target.value)} className="border border-[#111111] bg-[#F4F3F0] px-4 py-3 text-[14px] outline-none focus:border-[#FF4A00]" style={{ fontFamily: "var(--font-inter)" }}>
+                <option value="">— Firma seçilmedi —</option>
+                {firmIds.map((fid) => <option key={fid} value={fid}>{fid}</option>)}
+              </select>
+            )}
+            {form.atolyeId && (
+              <p className="text-[10px] text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>
+                Seçili: {form.atolyeId}
+              </p>
+            )}
           </div>
         </>
       )}

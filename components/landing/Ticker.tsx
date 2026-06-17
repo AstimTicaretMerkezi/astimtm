@@ -1,6 +1,6 @@
 export default function Ticker() {
   const text =
-    "USTALARIN MERKEZİ // YENİ NESİL TİCARET // ÇANAKKALE // TÜRKİYE // ASTİM TİCARET MERKEZİ // SANAT & TİCARET // 29 DÜKKAN // 3 BLOK // ";
+    "YAPIM AŞAMASINDA // UNDER CONSTRUCTION // ASTİM TİCARET MERKEZİ // YENİ NESİL TİCARET // ÇANAKKALE // TÜRKİYE // ";
 
   return (
     <div

@@ -22,6 +22,30 @@ export default function Navbar() {
         </span>
       </Link>
 
+      {/* Desktop nav */}
+      <div className="hidden md:flex gap-4 items-center">
+        {[
+          { label: "ATÖLYELERİMİZ", href: "/atolyeler" },
+          { label: "İLETİŞİM", href: "#konum" },
+        ].map((item) => (
+          <a
+            key={item.label}
+            href={item.href}
+            className="text-[12px] leading-[16px] font-[700] uppercase tracking-widest border border-[#111111] px-4 py-2 hover:bg-[#111111] hover:text-[#F4F3F0] transition-none"
+            style={{ fontFamily: "var(--font-space-mono)" }}
+          >
+            {item.label}
+          </a>
+        ))}
+        <Link
+          href="/giris"
+          className="text-[12px] leading-[16px] font-[700] uppercase tracking-widest bg-[#111111] text-[#F4F3F0] px-4 py-2 hover:bg-[#FF4A00] transition-none flex items-center gap-2"
+          style={{ fontFamily: "var(--font-space-mono)" }}
+        >
+          ÜYE GİRİŞİ →
+        </Link>
+      </div>
+
       {/* Mobile menu button */}
       <button
         className="md:hidden flex flex-col justify-center items-center gap-[5px] w-8 h-8"

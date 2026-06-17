@@ -65,3 +65,51 @@ export type User = {
   atolyeId: string | null;
   createdAt: string;
 };
+
+export type Firm = {
+  subId: number;
+  businessName: string | null;
+  ownerName: string | null;
+  category: string | null;
+  logo: string | null;
+  phone: string | null;
+  website: string | null;
+  instagram: string | null;
+  whatsapp: string | null;
+  description: string | null;
+  taxNumber: string | null;
+  address: string | null;
+  workingHours: string | null;
+  brands: string[];
+  isActive: boolean;
+};
+
+export type Shop = {
+  id: string;
+  no: number;
+  firms: Firm[];
+};
+
+/** Parse "B-04.1" → { blockKey:"B", shopId:"B-04", firmSubId:1 } */
+export function parseFirmId(firmId: string): { blockKey: string; shopId: string; firmSubId: number } | null {
+  const dotIdx = firmId.lastIndexOf(".");
+  if (dotIdx === -1) return null;
+  const shopId = firmId.slice(0, dotIdx);
+  const firmSubId = parseInt(firmId.slice(dotIdx + 1), 10);
+  if (isNaN(firmSubId)) return null;
+  const blockKey = shopId.split("-")[0];
+  return { blockKey, shopId, firmSubId };
+}
+
+/** Collect all firmIds across all shops, sorted */
+export function allFirmIds(blocks: Record<string, { shops: Shop[] }>): string[] {
+  const ids: string[] = [];
+  for (const block of Object.values(blocks)) {
+    for (const shop of block.shops) {
+      for (const firm of (shop.firms ?? [])) {
+        ids.push(`${shop.id}.${firm.subId}`);
+      }
+    }
+  }
+  return ids;
+}
