@@ -1,6 +1,6 @@
-import shopsData from "@/data/shops.json";
+import atolyelerData from "@/data/atolyeler.json";
 
-type Shop = {
+type Atolye = {
   id: string;
   no: number;
   businessName: string | null;
@@ -16,11 +16,11 @@ type Shop = {
 
 type Block = {
   label: string;
-  shops: Shop[];
+  shops: Atolye[];
 };
 
-function ShopCard({ shop, blockKey }: { shop: Shop; blockKey: string }) {
-  const isEmpty = !shop.businessName;
+function AtolyeCard({ atolye, blockKey }: { atolye: Atolye; blockKey: string }) {
+  const isEmpty = !atolye.businessName;
 
   return (
     <div
@@ -32,7 +32,6 @@ function ShopCard({ shop, blockKey }: { shop: Shop; blockKey: string }) {
     >
       {/* Top */}
       <div className="flex items-start justify-between gap-2">
-        {/* Shop ID badge */}
         <span
           className={`text-[9px] tracking-[0.15em] uppercase px-2 py-1 border ${
             isEmpty
@@ -41,21 +40,20 @@ function ShopCard({ shop, blockKey }: { shop: Shop; blockKey: string }) {
           }`}
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          {shop.id}
+          {atolye.id}
         </span>
 
-        {/* Category tag */}
-        {shop.category && (
+        {atolye.category && (
           <span
             className="text-[8px] tracking-[0.1em] uppercase px-2 py-1 bg-[#DFFF00] text-[#111111] group-hover:bg-[#DFFF00]"
             style={{ fontFamily: "var(--font-space-mono)" }}
           >
-            {shop.category.toUpperCase()}
+            {atolye.category.toUpperCase()}
           </span>
         )}
       </div>
 
-      {/* Middle — Business name or placeholder */}
+      {/* Middle */}
       <div>
         {isEmpty ? (
           <div>
@@ -63,7 +61,7 @@ function ShopCard({ shop, blockKey }: { shop: Shop; blockKey: string }) {
               className="text-[#c4c7c7] text-xl font-black tracking-[-0.02em] uppercase leading-tight"
               style={{ fontFamily: "var(--font-hanken)" }}
             >
-              DÜKKAN {blockKey}-{String(shop.no).padStart(2, "0")}
+              ATÖLYE {blockKey}-{String(atolye.no).padStart(2, "0")}
             </div>
             <div
               className="text-[#c4c7c7] text-[9px] tracking-[0.1em] uppercase mt-1"
@@ -78,25 +76,25 @@ function ShopCard({ shop, blockKey }: { shop: Shop; blockKey: string }) {
               className="text-[#111111] group-hover:text-[#F4F3F0] text-xl font-black tracking-[-0.02em] uppercase leading-tight transition-none"
               style={{ fontFamily: "var(--font-hanken)" }}
             >
-              {shop.businessName}
+              {atolye.businessName}
             </div>
-            {shop.description && (
+            {atolye.description && (
               <div
                 className="text-[#747878] group-hover:text-[#747878] text-[11px] mt-1 line-clamp-2"
                 style={{ fontFamily: "var(--font-inter)" }}
               >
-                {shop.description}
+                {atolye.description}
               </div>
             )}
           </div>
         )}
       </div>
 
-      {/* Bottom — Contact info */}
+      {/* Bottom */}
       <div className="flex items-center gap-3 border-t border-[#EFEEEB] group-hover:border-[#2f312f] pt-3 transition-none">
-        {shop.instagram && (
+        {atolye.instagram && (
           <a
-            href={`https://instagram.com/${shop.instagram.replace("@", "")}`}
+            href={`https://instagram.com/${atolye.instagram.replace("@", "")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[9px] tracking-[0.1em] uppercase text-[#747878] hover:text-[#FF4A00]"
@@ -106,19 +104,19 @@ function ShopCard({ shop, blockKey }: { shop: Shop; blockKey: string }) {
             IG
           </a>
         )}
-        {shop.phone && (
+        {atolye.phone && (
           <a
-            href={`tel:${shop.phone}`}
+            href={`tel:${atolye.phone}`}
             className="text-[9px] tracking-[0.1em] uppercase text-[#747878] hover:text-[#FF4A00]"
             style={{ fontFamily: "var(--font-space-mono)" }}
             onClick={(e) => e.stopPropagation()}
           >
-            {shop.phone}
+            {atolye.phone}
           </a>
         )}
-        {shop.website && (
+        {atolye.website && (
           <a
-            href={shop.website}
+            href={atolye.website}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[9px] tracking-[0.1em] uppercase text-[#747878] hover:text-[#FF4A00] ml-auto"
@@ -133,24 +131,24 @@ function ShopCard({ shop, blockKey }: { shop: Shop; blockKey: string }) {
   );
 }
 
-export default function ShopGrid() {
-  const blocks = shopsData.blocks as Record<string, Block>;
+export default function AtolyeGrid() {
+  const blocks = atolyelerData.blocks as Record<string, Block>;
 
   return (
-    <section id="dukkanlar" className="col-span-12 border-b border-[#111111]">
+    <section id="atolyeler" className="col-span-12 border-b border-[#111111]">
       {/* Section header */}
       <div className="border-b border-[#111111] px-6 py-4 flex items-baseline justify-between">
         <span
           className="text-[10px] tracking-[0.2em] uppercase text-[#111111]"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          DÜKKANLARIMIZ
+          ATÖLYELERİMİZ
         </span>
         <span
           className="text-[9px] tracking-[0.1em] uppercase text-[#747878]"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          TOPLAM: 29 DÜKKAN // 3 BLOK
+          TOPLAM: 29 ATÖLYE // 3 BLOK
         </span>
       </div>
 
@@ -168,14 +166,14 @@ export default function ShopGrid() {
               className="text-[#DFFF00] text-[9px] tracking-[0.15em] uppercase"
               style={{ fontFamily: "var(--font-space-mono)" }}
             >
-              {block.shops.length} DÜKKAN
+              {block.shops.length} ATÖLYE
             </span>
           </div>
 
-          {/* Shop cards grid */}
+          {/* Atolye cards grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 border-l border-t border-[#111111]">
-            {block.shops.map((shop) => (
-              <ShopCard key={shop.id} shop={shop} blockKey={blockKey} />
+            {block.shops.map((atolye) => (
+              <AtolyeCard key={atolye.id} atolye={atolye} blockKey={blockKey} />
             ))}
           </div>
         </div>

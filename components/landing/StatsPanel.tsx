@@ -1,10 +1,10 @@
-import shopsData from "@/data/shops.json";
+import atolyelerData from "@/data/atolyeler.json";
 
-type Shop = { isActive: boolean; category: string | null };
-type Block = { label: string; shops: Shop[] };
+type Atolye = { isActive: boolean; category: string | null };
+type Block = { label: string; shops: Atolye[] };
 
 function getBlockStats() {
-  return Object.entries(shopsData.blocks as Record<string, Block>).map(
+  return Object.entries(atolyelerData.blocks as Record<string, Block>).map(
     ([key, block]) => ({
       key,
       label: block.label,
@@ -15,10 +15,10 @@ function getBlockStats() {
 
 function getCategories() {
   const cats = new Map<string, number>();
-  Object.values(shopsData.blocks as Record<string, Block>).forEach((block) => {
-    block.shops.forEach((shop) => {
-      if (shop.category && shop.isActive) {
-        const key = shop.category.toUpperCase().trim();
+  Object.values(atolyelerData.blocks as Record<string, Block>).forEach((block) => {
+    block.shops.forEach((atolye) => {
+      if (atolye.category && atolye.isActive) {
+        const key = atolye.category.toUpperCase().trim();
         cats.set(key, (cats.get(key) ?? 0) + 1);
       }
     });
@@ -29,7 +29,7 @@ function getCategories() {
 export default function StatsPanel() {
   const blockStats = getBlockStats();
   const categories = getCategories();
-  const totalShops = blockStats.reduce((s, b) => s + b.total, 0);
+  const totalAtolye = blockStats.reduce((s, b) => s + b.total, 0);
 
   const rows = [
     ...blockStats.map((b) => ({ count: b.total, label: b.label })),
@@ -44,7 +44,7 @@ export default function StatsPanel() {
           className="text-[12px] leading-[16px] font-[700] text-[#DFFF00] mb-[32px] uppercase tracking-tighter"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          AKTİF DÜKKAN: {totalShops}
+          TOPLAM ATÖLYE: {totalAtolye}
         </h2>
 
         <div className="flex flex-col gap-[32px]">
