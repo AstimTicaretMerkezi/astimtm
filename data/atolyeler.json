@@ -141,6 +141,23 @@
               ],
               "isActive": false,
               "contactPerson": null
+            },
+            {
+              "subId": 2,
+              "businessName": null,
+              "ownerName": null,
+              "category": null,
+              "logo": null,
+              "phone": null,
+              "website": null,
+              "instagram": null,
+              "whatsapp": null,
+              "description": null,
+              "taxNumber": null,
+              "address": null,
+              "workingHours": null,
+              "brands": [],
+              "isActive": false
             }
           ]
         },
