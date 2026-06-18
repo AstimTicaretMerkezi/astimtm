@@ -155,9 +155,10 @@
               "description": null,
               "taxNumber": null,
               "address": null,
-              "workingHours": null,
+              "workingHours": "Pzt: 09:00-18:00, Sal: 09:00-18:00, Çar: 09:00-18:00, Per: 09:00-18:00, Cum: 09:00-18:00, Cmt: Kapalı, Paz: Kapalı",
               "brands": [],
-              "isActive": false
+              "isActive": false,
+              "contactPerson": null
             }
           ]
         },
