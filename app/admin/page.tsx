@@ -1,4 +1,4 @@
-import { getUsers, getAtolyeler, allFirmIds } from "@/lib/github";
+import { getUsers, getAtolyeler } from "@/lib/github";
 import AdminDashboardClient from "./AdminDashboardClient";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +9,19 @@ export default async function AdminPage() {
   const tumAtolyeler = Object.values(atolyeler.blocks).flatMap((b: any) => b.shops);
   const tumFirmalar = tumAtolyeler.flatMap((s: any) => s.firms ?? []);
   const aktifFirmalar = tumFirmalar.filter((f: any) => f.isActive).length;
-  const firmIds = allFirmIds(atolyeler.blocks);
+  const firmIds: string[] = [];
+  for (const block of Object.values(atolyeler.blocks) as any[]) {
+    for (const shop of block.shops as any[]) {
+      const firms: any[] = shop.firms ?? [];
+      if (firms.length <= 1) {
+        firmIds.push(shop.id);
+      } else {
+        for (const firm of firms) {
+          firmIds.push(`${shop.id}.${firm.subId}`);
+        }
+      }
+    }
+  }
 
   const stats = [
     { label: "TOPLAM KULLANICI", value: users.length },
