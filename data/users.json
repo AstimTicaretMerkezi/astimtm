@@ -17,6 +17,15 @@
       "role": "mülk-sahibi",
       "atolyeId": "B-04",
       "createdAt": "2026-06-17"
+    },
+    {
+      "id": "u-1781811819268",
+      "name": "Süleyman Yılmaz",
+      "email": "Suleyman@awesomebroduction.com",
+      "passwordHash": "$2b$12$NJYu/XQL4uMrx.jglW5DW.Thd1yd092fAEwB5hm7FORMFAfWSzrPi",
+      "role": "mülk-sahibi",
+      "atolyeId": "C-06",
+      "createdAt": "2026-06-18"
     }
   ]
 }
