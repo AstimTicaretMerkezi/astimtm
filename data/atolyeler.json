@@ -139,7 +139,7 @@
                 "Suzuki",
                 "Range Rover"
               ],
-              "isActive": false,
+              "isActive": true,
               "contactPerson": null
             }
           ]
