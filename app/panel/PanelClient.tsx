@@ -16,9 +16,9 @@ const DAYS = [
   { key: "Paz", label: "Pazar" },
 ];
 
-const CATEGORIES = [
+const FIXED_CATEGORIES = [
   "Tekstil", "Ayakkabı", "Elektronik", "Gıda", "Hırdavat",
-  "Mobilya", "Kozmetik", "Spor", "Oyuncak", "Kırtasiye", "Diğer",
+  "Mobilya", "Kozmetik", "Spor", "Oyuncak", "Kırtasiye",
 ];
 
 type DaySchedule = { open: boolean; start: string; end: string };
@@ -100,19 +100,26 @@ const TEXT_FIELDS = [
 function AtolyeEditModal({
   atolyeId,
   atolye,
+  customCategories,
   onClose,
   onSaved,
 }: {
   atolyeId: string;
   atolye: AtolyeData | null;
+  customCategories: string[];
   onClose: () => void;
   onSaved: () => void;
 }) {
+  const allCategories = [
+    ...FIXED_CATEGORIES,
+    ...customCategories.filter((c) => !FIXED_CATEGORIES.includes(c)),
+  ];
+  const isCustomCat = !!atolye?.category && !allCategories.includes(atolye.category);
+
   const [form, setForm] = useState({
     businessName: atolye?.businessName ?? "",
     ownerName: atolye?.ownerName ?? "",
     contactPerson: atolye?.contactPerson ?? "",
-    category: atolye?.category ?? "",
     taxNumber: atolye?.taxNumber ?? "",
     address: atolye?.address ?? "",
     phone: atolye?.phone ?? "",
@@ -121,6 +128,9 @@ function AtolyeEditModal({
     instagram: atolye?.instagram ?? "",
     description: atolye?.description ?? "",
   });
+  const [category, setCategory] = useState(isCustomCat ? "" : (atolye?.category ?? ""));
+  const [categoryMode, setCategoryMode] = useState<"select" | "custom">(isCustomCat ? "custom" : "select");
+  const [customCategoryInput, setCustomCategoryInput] = useState(isCustomCat ? (atolye?.category ?? "") : "");
   const [logo, setLogo] = useState<string | null>(atolye?.logo ?? null);
   const [logoUploading, setLogoUploading] = useState(false);
   const [workingHours, setWorkingHours] = useState<WorkingHoursMap>(() =>
@@ -180,15 +190,22 @@ function AtolyeEditModal({
     setLoading(true);
     setError("");
 
+    const finalCategory = categoryMode === "custom" ? customCategoryInput.trim() : category;
+    const isNewCustom = categoryMode === "custom" && finalCategory && !allCategories.includes(finalCategory);
+
+    const body: Record<string, any> = {
+      ...form,
+      category: finalCategory || null,
+      logo,
+      workingHours: serializeWorkingHours(workingHours),
+      brands,
+    };
+    if (isNewCustom) body.newCustomCategory = finalCategory;
+
     const res = await fetch("/api/panel/atolye", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...form,
-        logo,
-        workingHours: serializeWorkingHours(workingHours),
-        brands,
-      }),
+      body: JSON.stringify(body),
     });
 
     setLoading(false);
@@ -258,14 +275,29 @@ function AtolyeEditModal({
             <div className="border-b border-[#111111] px-6 py-4 flex flex-col gap-2">
               <label className="text-[10px] font-[700] tracking-[0.15em] uppercase text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>KATEGORİ</label>
               <select
-                value={form.category}
-                onChange={(e) => setField("category", e.target.value)}
+                value={categoryMode === "custom" ? "__diger__" : category}
+                onChange={(e) => {
+                  if (e.target.value === "__diger__") { setCategoryMode("custom"); setCategory(""); }
+                  else { setCategoryMode("select"); setCategory(e.target.value); }
+                }}
                 className="border border-[#111111] bg-[#F4F3F0] px-4 py-2.5 text-[14px] outline-none focus:border-[#FF4A00]"
                 style={{ fontFamily: "var(--font-inter)" }}
               >
                 <option value="">— Seçin —</option>
-                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                {allCategories.map((c) => <option key={c} value={c}>{c}</option>)}
+                <option value="__diger__">+ Yeni Kategori Ekle</option>
               </select>
+              {categoryMode === "custom" && (
+                <input
+                  type="text"
+                  placeholder="Kategori adını girin..."
+                  value={customCategoryInput}
+                  onChange={(e) => setCustomCategoryInput(e.target.value)}
+                  className="border border-[#FF4A00] bg-transparent px-3 py-2 text-[13px] outline-none"
+                  style={{ fontFamily: "var(--font-inter)" }}
+                  autoFocus
+                />
+              )}
             </div>
 
             {/* Text fields (2 columns) */}
@@ -439,9 +471,11 @@ function AtolyeEditModal({
 export default function PanelClient({
   atolyeId,
   atolye,
+  customCategories = [],
 }: {
   atolyeId: string | null;
   atolye: AtolyeData | null;
+  customCategories?: string[];
 }) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
@@ -531,6 +565,7 @@ export default function PanelClient({
         <AtolyeEditModal
           atolyeId={atolyeId}
           atolye={atolye}
+          customCategories={customCategories}
           onClose={() => setShowModal(false)}
           onSaved={handleSaved}
         />

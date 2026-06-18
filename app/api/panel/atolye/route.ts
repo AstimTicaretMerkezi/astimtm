@@ -74,6 +74,13 @@ export async function PATCH(req: Request) {
   merged.isActive = !!(merged.businessName && merged.phone);
 
   atolyeler.blocks[blockKey].shops[shopIdx].firms[firmIdx] = merged;
+  if (body.newCustomCategory) {
+    const existing: string[] = atolyeler.customCategories ?? [];
+    if (!existing.includes(body.newCustomCategory)) {
+      atolyeler.customCategories = [...existing, body.newCustomCategory];
+    }
+  }
+
   await saveAtolyeler(atolyeler, sha);
 
   return NextResponse.json({ ok: true });

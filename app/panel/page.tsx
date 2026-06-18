@@ -9,17 +9,18 @@ export default async function PanelPage() {
   const atolyeId = session?.user?.atolyeId ?? null;
 
   let atolye = null;
+  let customCategories: string[] = [];
+
   if (atolyeId) {
     const { atolyeler } = await getAtolyeler();
+    customCategories = atolyeler.customCategories ?? [];
     const parsed = parseFirmId(atolyeId);
 
     if (parsed) {
-      // New format: "B-04.1"
       const { blockKey, shopId, firmSubId } = parsed;
       const shop = atolyeler.blocks?.[blockKey]?.shops?.find((s: any) => s.id === shopId);
       atolye = shop?.firms?.find((f: any) => f.subId === firmSubId) ?? null;
     } else {
-      // Legacy format: "B-04" → use firm with subId 1 if it exists
       const blockKey = atolyeId.split("-")[0];
       const shop = atolyeler.blocks?.[blockKey]?.shops?.find((s: any) => s.id === atolyeId);
       if (shop) {
@@ -29,5 +30,5 @@ export default async function PanelPage() {
     }
   }
 
-  return <PanelClient atolyeId={atolyeId} atolye={atolye} />;
+  return <PanelClient atolyeId={atolyeId} atolye={atolye} customCategories={customCategories} />;
 }
