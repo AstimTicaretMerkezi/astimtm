@@ -35,6 +35,15 @@
       "role": "kiracı",
       "atolyeId": "B-08",
       "createdAt": "2026-06-18"
+    },
+    {
+      "id": "u-1781814633484",
+      "name": "Şerif Ali Yıldız",
+      "email": "aliserif1717@gmail.com",
+      "passwordHash": "$2b$12$bGlS78MoyeKG3fRJ7OyrtOO6sEjHTHjjxphrM4lxXL6X4eWH5wgV2",
+      "role": "mülk-sahibi",
+      "atolyeId": "C-05",
+      "createdAt": "2026-06-18"
     }
   ]
 }
