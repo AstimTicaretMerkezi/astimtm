@@ -114,3 +114,21 @@ export function allFirmIds(blocks: Record<string, { shops: Shop[] }>): string[] 
   }
   return ids;
 }
+
+/** All assignable slot IDs — existing firms + empty shops (as .1) */
+export function allSlotIds(blocks: Record<string, { shops: Shop[] }>): string[] {
+  const ids: string[] = [];
+  for (const block of Object.values(blocks)) {
+    for (const shop of block.shops) {
+      const firms = shop.firms ?? [];
+      if (firms.length === 0) {
+        ids.push(`${shop.id}.1`);
+      } else {
+        for (const firm of firms) {
+          ids.push(`${shop.id}.${firm.subId}`);
+        }
+      }
+    }
+  }
+  return ids;
+}
