@@ -1,5 +1,7 @@
 {
-  "customCategories": [],
+  "customCategories": [
+    "Kişisel Atölye"
+  ],
   "blocks": {
     "A": {
       "label": "A Blok",
@@ -119,23 +121,24 @@
           "firms": [
             {
               "subId": 1,
-              "businessName": "KEEPINBOXES",
+              "businessName": "KY Garage",
               "ownerName": "Okan KAYA",
-              "category": "Elektronik",
+              "category": "Kişisel Atölye",
               "logo": "https://res.cloudinary.com/days4cluv/image/upload/v1781726772/astimtm/logos/atolye-B-04.png",
               "phone": "05339264905",
               "website": "https://www.keepinboxes.com",
               "instagram": "@keepinboxes",
               "whatsapp": "05339264905",
               "description": "Yapıyoruz bişiler",
-              "taxNumber": "6091143948",
+              "taxNumber": null,
               "address": "B Blok Atölye 4",
               "workingHours": "Pzt: 09:00-18:00, Sal: 09:00-18:00, Çar: 09:00-18:00, Per: 09:00-18:00, Cum: 09:00-18:00, Cmt: Kapalı, Paz: Kapalı",
               "brands": [
                 "Siemens",
                 "Saia-Burgess Controls"
               ],
-              "isActive": true
+              "isActive": true,
+              "contactPerson": null
             }
           ]
         },
