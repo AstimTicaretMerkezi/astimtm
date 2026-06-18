@@ -155,7 +155,26 @@
           "website": null,
           "instagram": null,
           "description": null,
-          "isActive": false
+          "isActive": false,
+          "firms": [
+            {
+              "subId": 1,
+              "businessName": null,
+              "ownerName": null,
+              "category": null,
+              "logo": null,
+              "phone": null,
+              "website": null,
+              "instagram": null,
+              "whatsapp": null,
+              "description": null,
+              "taxNumber": null,
+              "address": null,
+              "workingHours": null,
+              "brands": [],
+              "isActive": false
+            }
+          ]
         },
         {
           "id": "B-06",
