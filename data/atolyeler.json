@@ -125,10 +125,10 @@
               "ownerName": "Okan KAYA",
               "category": "Kişisel Atölye",
               "logo": "https://res.cloudinary.com/days4cluv/image/upload/v1781726772/astimtm/logos/atolye-B-04.png",
-              "phone": "05339264905",
+              "phone": null,
               "website": null,
               "instagram": "@ky_90s",
-              "whatsapp": "05339264905",
+              "whatsapp": null,
               "description": "Yapıyoruz bişiler",
               "taxNumber": null,
               "address": "B Blok Atölye 4",
@@ -139,7 +139,7 @@
                 "Suzuki",
                 "Range Rover"
               ],
-              "isActive": true,
+              "isActive": false,
               "contactPerson": null
             }
           ]
