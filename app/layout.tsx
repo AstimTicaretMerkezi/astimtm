@@ -34,6 +34,7 @@ export default function RootLayout({
     <html
       lang="tr"
       className={`${hanken.variable} ${inter.variable} ${spaceMono.variable}`}
+      data-scroll-behavior="smooth"
     >
       <body className="min-h-screen">{children}</body>
     </html>

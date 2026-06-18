@@ -24,6 +24,7 @@ const DAYS = [
 const TEXT_FIELDS = [
   { key: "businessName", label: "FİRMA ADI", type: "text", placeholder: "Örn: Ahmet Tekstil" },
   { key: "ownerName", label: "YETKİLİ ADI", type: "text", placeholder: "Örn: Ahmet Yılmaz" },
+  { key: "contactPerson", label: "İLETİŞİM KİŞİSİ", type: "text", placeholder: "Örn: Mehmet Kaya (Müdür)" },
   { key: "taxNumber", label: "VERGİ NUMARASI", type: "text", placeholder: "10 haneli vergi no" },
   { key: "address", label: "ADRES", type: "text", placeholder: "Atölye adresi" },
   { key: "phone", label: "TELEFON", type: "tel", placeholder: "0555 000 00 00" },
@@ -79,6 +80,7 @@ type Firm = {
   subId: number;
   businessName: string | null;
   ownerName: string | null;
+  contactPerson: string | null;
   category: string | null;
   logo: string | null;
   phone: string | null;
@@ -121,6 +123,7 @@ function FirmModal({
   const [form, setForm] = useState({
     businessName: firm.businessName ?? "",
     ownerName: firm.ownerName ?? "",
+    contactPerson: firm.contactPerson ?? "",
     taxNumber: firm.taxNumber ?? "",
     address: firm.address ?? "",
     phone: firm.phone ?? "",
@@ -442,7 +445,7 @@ export default function AtolyelerClient({
   const [addingShopId, setAddingShopId] = useState<string | null>(null);
 
   const allFirms = Object.values(blocks).flatMap((b) =>
-    b.shops.flatMap((s) => s.firms)
+    b.shops.flatMap((s) => s.firms ?? [])
   );
   const totalShops = Object.values(blocks).flatMap((b) => b.shops).length;
   const totalAktif = allFirms.filter((f) => f.isActive).length;
@@ -457,7 +460,7 @@ export default function AtolyelerClient({
         const subId = parseInt(selectedFirmId.slice(dotIdx + 1), 10);
         const blockKey = shopId.split("-")[0];
         const shop = blocks[blockKey]?.shops.find((s) => s.id === shopId);
-        return shop?.firms.find((f) => f.subId === subId) ?? null;
+        return shop?.firms?.find((f) => f.subId === subId) ?? null;
       })()
     : null;
 
@@ -512,12 +515,13 @@ export default function AtolyelerClient({
               {block.label}
             </span>
             <span className="text-[#DFFF00] text-[10px] font-[700] tracking-[0.1em] uppercase" style={{ fontFamily: "var(--font-space-mono)" }}>
-              {block.shops.flatMap((s) => s.firms).filter((f) => f.isActive).length} AKTİF
+              {block.shops.flatMap((s) => s.firms ?? []).filter((f) => f.isActive).length} AKTİF
             </span>
           </div>
 
           {block.shops.map((shop, si) => {
-            const isEmpty = shop.firms.length === 0;
+            const shopFirms = shop.firms ?? [];
+            const isEmpty = shopFirms.length === 0;
             return (
               <div key={shop.id} className={si < block.shops.length - 1 ? "border-b border-[#111111]" : ""}>
 
@@ -534,7 +538,7 @@ export default function AtolyelerClient({
                       <span className="text-[12px] text-[#c4c7c7]" style={{ fontFamily: "var(--font-inter)" }}>— Boş atölye —</span>
                     ) : (
                       <span className="text-[11px] text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>
-                        {shop.firms.length} FİRMA
+                        {shopFirms.length} FİRMA
                       </span>
                     )}
                   </div>
@@ -550,12 +554,12 @@ export default function AtolyelerClient({
                 </div>
 
                 {/* Firm rows */}
-                {shop.firms.map((firm, fi) => {
+                {shopFirms.map((firm, fi) => {
                   const firmId = `${shop.id}.${firm.subId}`;
                   return (
                     <div
                       key={firm.subId}
-                      className={`px-6 py-4 grid grid-cols-12 gap-4 items-center border-t border-[#111111] bg-[#F4F3F0] ${fi < shop.firms.length - 1 ? "" : ""}`}
+                      className={`px-6 py-4 grid grid-cols-12 gap-4 items-center border-t border-[#111111] bg-[#F4F3F0] ${fi < shopFirms.length - 1 ? "" : ""}`}
                     >
                       {/* FirmId */}
                       <div className="col-span-2">

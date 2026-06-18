@@ -41,10 +41,10 @@ export default function HowToGet() {
 
             <div className="flex flex-col gap-0 border-t border-[#111111]">
               {[
-                { label: "ADRES", value: "Çanakkale, Türkiye" },
-                { label: "TELEFON", value: "—" },
-                { label: "E-POSTA", value: "—" },
-                { label: "ÇALIŞMA SAATLERİ", value: "Pzt–Cts 09:00–18:00" },
+                { label: "ADRES", value: "Çan Yolu 2.sk Karacaören Mah. Merkez Çanakkale, Türkiye" },
+                { label: "TELEFON", value: "+90 532 221 52 14" },
+                { label: "E-POSTA", value: "astimticaretmerkezi@gmail.com" },
+                { label: "ÇALIŞMA SAATLERİ", value: "Pzt–Pz 08:00–22:00" },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -68,36 +68,31 @@ export default function HowToGet() {
           </div>
 
           <a
-            href="https://maps.google.com"
+            href="https://www.google.com/maps/dir/?api=1&destination=40.14521043444345,26.45483170305124&travelmode=driving"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-4 bg-[#FF4A00] text-[#F4F3F0] text-xs tracking-[0.15em] uppercase hover:bg-[#111111] transition-none inline-flex items-center gap-3 self-start"
             style={{ fontFamily: "var(--font-space-mono)" }}
           >
-            HARİTADA GÖRÜNTÜLE →
+            YOL TARİFİ AL →
           </a>
         </div>
 
-        {/* Right — Map placeholder */}
-        <div className="relative min-h-[400px] bg-[#EFEEEB] flex items-center justify-center">
-          <div className="text-center">
-            <div
-              className="text-4xl font-black tracking-[-0.04em] text-[#c4c7c7] uppercase mb-2"
-              style={{ fontFamily: "var(--font-hanken)" }}
-            >
-              HARİTA
-            </div>
-            <div
-              className="text-[9px] tracking-[0.15em] text-[#c4c7c7] uppercase"
-              style={{ fontFamily: "var(--font-space-mono)" }}
-            >
-              Google Maps embed buraya gelecek
-            </div>
-          </div>
+        {/* Right — Map */}
+        <div className="relative min-h-[400px]">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d788.9222922772549!2d26.45483170305124!3d40.14521043444345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1str!2str!4v1781804196876!5m2!1str!2str"
+            width="100%"
+            height="100%"
+            style={{ border: 0, position: "absolute", inset: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
 
           {/* Corner badge */}
           <div
-            className="absolute top-4 right-4 bg-[#111111] text-[#F4F3F0] px-3 py-1 text-[9px] tracking-[0.1em] uppercase"
+            className="absolute top-4 right-4 bg-[#111111] text-[#F4F3F0] px-3 py-1 text-[9px] tracking-[0.1em] uppercase z-10"
             style={{ fontFamily: "var(--font-space-mono)" }}
           >
             ÇANAKKALE // TR

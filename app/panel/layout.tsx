@@ -30,7 +30,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
           <span className="text-[11px] text-[#DFFF00] font-[700] tracking-[0.1em] uppercase hidden md:block" style={{ fontFamily: "var(--font-space-mono)" }}>
             {session.user.name}
           </span>
-          <form action={async () => { "use server"; await signOut({ redirectTo: "/giris" }); }}>
+          <form action={async () => { "use server"; await signOut({ redirectTo: "/" }); }}>
             <button type="submit" className="text-[11px] font-[700] tracking-[0.1em] uppercase text-[#F4F3F0]/60 hover:text-[#FF4A00] transition-none" style={{ fontFamily: "var(--font-space-mono)" }}>
               ÇIKIŞ →
             </button>

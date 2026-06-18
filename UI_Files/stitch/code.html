@@ -1,0 +1,271 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="tr" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ASTİM TİCARET - YAPIM AŞAMASINDA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@800;900&amp;family=Inter:wght@400;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grid-border {
+            box-shadow: 0 0 0 1px #111111;
+        }
+        .invert-hover:hover {
+            background-color: #111111 !important;
+            color: #F4F3F0 !important;
+        }
+        .industrial-line {
+            background-image: repeating-linear-gradient(45deg, #FF4A00 0, #FF4A00 10px, transparent 10px, transparent 20px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#7a8c00",
+                        "ink-black": "#111111",
+                        "outline": "#747878",
+                        "acid-green": "#DFFF00",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#3a0a00",
+                        "on-background": "#1b1c1a",
+                        "inverse-primary": "#c8c6c5",
+                        "surface-dim": "#dbdad7",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-secondary-fixed-variant": "#862300",
+                        "surface-container": "#efeeeb",
+                        "secondary": "#ab2f00",
+                        "tertiary-container": "#191e00",
+                        "tertiary-fixed-dim": "#b8d300",
+                        "bone-white": "#F4F3F0",
+                        "secondary-fixed-dim": "#ffb59f",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#d2f000",
+                        "surface-bright": "#faf9f6",
+                        "surface-container-low": "#f4f3f0",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-container-highest": "#e3e2df",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f2f1ee",
+                        "surface-variant": "#e3e2df",
+                        "on-surface-variant": "#444748",
+                        "surface-tint": "#5f5e5e",
+                        "secondary-container": "#d63d00",
+                        "on-surface": "#1b1c1a",
+                        "outline-variant": "#c4c7c7",
+                        "inverse-surface": "#2f312f",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed-variant": "#414c00",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "primary-container": "#1c1b1b",
+                        "industrial-orange": "#FF4A00",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e9e8e5",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#858383",
+                        "surface": "#faf9f6",
+                        "secondary-fixed": "#ffdbd1",
+                        "primary": "#000000",
+                        "background": "#faf9f6",
+                        "on-tertiary-fixed": "#191e00",
+                        "on-secondary-container": "#fffbff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "2.5rem",
+                        "stack-sm": "8px",
+                        "grid-line": "1px",
+                        "margin-mobile": "1rem",
+                        "stack-md": "16px",
+                        "gutter": "0px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-sm": ["Space Mono"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "meta-mono": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-xl": ["80px", {"lineHeight": "72px", "letterSpacing": "-0.04em", "fontWeight": "900"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "meta-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+            @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+        </style></head>
+<body class="bg-bone-white text-ink-black selection:bg-industrial-orange selection:text-bone-white">
+<!-- TopNavBar -->
+<nav class="bg-bone-white dark:bg-ink-black text-ink-black dark:text-bone-white flex justify-between items-center w-full px-margin-desktop h-20 border-b border-ink-black sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<img alt="Astim Logo" class="h-10 grayscale brightness-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEbFUV5PJvc4JCSr8SXAMEXCWbAi_xMVL-oDQgOvsBnqXOZWkCAdC7MM4E0iQyR0qYK57GeT5zvG-naPy8jJ6Gk68DN-lEBmfOhfEGVJrzaDkxAAbsV-xCLWqpnTzsTyE2V1vh5VoEVleynApvh6fiaIhSu2UmgO2jEZMh1UcuYVLkroLLSxbKy_MQcuQmynbNa83rkTJ7Sj2lOhijxPBck9auqPZIUqQkKB14qUyBjOzrwlnr5ePU3oK8eAfbfnQo8agNCW57eWnIXg">
+<span class="text-body-lg font-headline-xl tracking-tighter uppercase text-ink-black dark:text-bone-white">ASTIM TICARET MERKEZI</span>
+</div>
+<div class="hidden md:flex gap-8">
+
+
+
+
+</div>
+
+</nav>
+<!-- Main Content Grid Wrapper -->
+<main class="grid grid-cols-1 md:grid-cols-12 w-full min-h-screen">
+<!-- Section 1: Hero -->
+<section class="md:col-span-12 border-b border-ink-black relative overflow-hidden flex flex-col md:flex-row">
+<div class="w-full md:w-1/2 p-margin-desktop flex flex-col justify-center border-r border-ink-black bg-bone-white relative z-10">
+<div class="flex items-center gap-2 mb-stack-lg">
+<span class="w-3 h-3 bg-industrial-orange animate-pulse"></span>
+<p class="font-label-sm text-label-sm uppercase tracking-widest">SİSTEM DURUMU: AKTİF</p>
+</div>
+<h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl leading-none uppercase mb-stack-md">YAPIM AŞAMASINDA</h1>
+<p class="font-body-md text-body-md max-w-md mb-stack-lg opacity-80">Yeni Nesil Ticaret Merkezi Çok Yakında. Endüstriyel mükemmellik için tasarlanan modern iş ekosistemimiz şekilleniyor.</p>
+<div class="flex gap-stack-md mt-auto">
+<button class="bg-ink-black text-bone-white px-10 py-5 font-label-sm text-label-sm hover:bg-industrial-orange transition-none flex items-center gap-2 group">
+                        HABERDAR OL <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="w-full md:w-1/2 min-h-[500px] relative">
+<div class="absolute inset-0 bg-ink-black/10 z-10 pointer-events-none"></div>
+<!-- Simulating IMAGE_13 with a prompt-heavy div or just assuming background positioning -->
+<div class="w-full h-full bg-cover bg-center bg-no-repeat" data-alt="A futuristic and industrial commercial center construction site, captured with a sharp archival photography style. The structure features exposed steel beams and concrete foundations, bathed in the soft, high-contrast light of a late afternoon sun. The color palette is dominated by bone white and deep blacks, creating a technical and authoritative aesthetic. In the background, modern architectural forms begin to emerge against a clear sky, symbolizing industrial progress and raw precision." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida/AP1WRLszT5thRgtiKEJnmBvzOL4kOCtmON_Hfn-U9R1I3-M-fM-AgoyTT2ngX1PdgyFuiWk8ctcq8jfMM4V9kUjJUvUw57AdFZEdI-bVQD5lGwoJmjTL0IXYe2I0QSqokp2tJvK2zSy8sMIuWBnpdiVQHHofmtlJiIfwAjt9c9rHMykLM_KqiwNpCCEcvfboUXxKdNYGpFMa9sfHqfNQ7k43HLZ2otjBHG2rWfNX6wJzjHe8GA8CyKt8jPA19w&quot;);"></div>
+<div class="absolute bottom-0 right-0 p-4 bg-ink-black text-bone-white font-label-sm text-label-sm z-20">
+                    REF. NO: ATC_2024_001
+                </div>
+</div>
+</section>
+<!-- Section 2: Progress Status -->
+<section class="md:col-span-4 border-b border-r border-ink-black p-margin-desktop bg-ink-black text-bone-white flex flex-col justify-between">
+<div>
+<h2 class="font-label-sm text-label-sm text-acid-green mb-stack-lg uppercase tracking-tighter">AKTİF DÜKKAN: 34</h2>
+<div class="space-y-stack-lg"><div class="border-t border-bone-white/20 pt-4 flex justify-between font-label-sm text-label-sm"><span class="text-acid-green">4</span> <span class="">MOBİLYA ATÖLYESİ</span></div><div class="border-t border-bone-white/20 pt-4 flex justify-between font-label-sm text-label-sm"><span class="text-acid-green">2</span> <span class="">OTOMOTİV</span></div><div class="border-t border-bone-white/20 pt-4 flex justify-between font-label-sm text-label-sm"><span class="text-acid-green">2</span> <span class="">GIDA</span></div><div class="border-t border-bone-white/20 pt-4 flex justify-between font-label-sm text-label-sm"><span class="text-acid-green">4</span> <span class="">SANAT ATÖLYESİ</span></div></div>
+</div>
+<div class="mt-stack-lg pt-stack-lg border-t border-bone-white/20">
+<p class="font-label-sm text-label-sm opacity-60">TAHMİNİ TAMAMLANMA: Q4 2024</p>
+</div>
+</section>
+<!-- Section 3: Archive/Gallery -->
+<section class="md:col-span-8 border-b border-ink-black bg-bone-white">
+<div class="grid grid-cols-1 md:grid-cols-2 h-full">
+<!-- Card 1 -->
+<div class="border-r border-ink-black flex flex-col">
+<div class="p-6 border-b border-ink-black">
+<img alt="Modern industrial trade center render" class="w-full aspect-[1.9] object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOebepM28YWBqGafx6swCXKL9bw2qfm_uuHCgZfEOOeTXpYgJH5nMSX-ZKa6FSO7vayvx9Y40FuZrCooGi1t1h_po4DtBVeSRgplavX-OjkfiZbvcnASToyItI2_0tqoPtcr1GBOpVLh7lMDQ671nlLz7Xq6NXjB9iUJRRXV_JRYt2npVTmfeLHCI0Tit-Qegr4xYCh27Ey8l2sgYKrq1U0XV4DDVmQMR411lfxjSrH3J-lIn4ySkqTi5Yt2W6RsI4EuqLiPuprms">
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-industrial-orange mb-2">ASTİM TİCARET MERKEZİ SANAL TUR&nbsp;</p>
+<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase mb-4 leading-none">galeri</h3>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm border-t border-ink-black pt-4 mt-4">
+<span class="">LOCATION: CANAKKALE</span>
+<span class="">ID: 001/6</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex flex-col">
+<div class="p-6 border-b border-ink-black">
+<img alt="Arşiv 02" class="w-full aspect-[1.9] object-cover grayscale" src="https://lh3.googleusercontent.com/aida/AP1WRLszT5thRgtiKEJnmBvzOL4kOCtmON_Hfn-U9R1I3-M-fM-AgoyTT2ngX1PdgyFuiWk8ctcq8jfMM4V9kUjJUvUw57AdFZEdI-bVQD5lGwoJmjTL0IXYe2I0QSqokp2tJvK2zSy8sMIuWBnpdiVQHHofmtlJiIfwAjt9c9rHMykLM_KqiwNpCCEcvfboUXxKdNYGpFMa9sfHqfNQ7k43HLZ2otjBHG2rWfNX6wJzjHe8GA8CyKt8jPA19w">
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-industrial-orange mb-2">YOL TARİFİ ALMAK İÇİN DOKUNUN</p>
+<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase mb-4 leading-none">nasıl gelinir?</h3>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm border-t border-ink-black pt-4 mt-4">
+<span class="">LOCATION: MERKEZ</span>
+<span class="">ID: 002/10</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Marquee / Ticker -->
+<div class="md:col-span-12 industrial-line h-12 border-b border-ink-black overflow-hidden flex items-center">
+<div class="whitespace-nowrap font-label-sm text-label-sm text-ink-black flex gap-10 animate-[marquee_20s_linear_infinite]">
+<span class="">YAPIM AŞAMASINDA // UNDER CONSTRUCTION // ASTIM TİCARET MERKEZİ // YENİ NESİL TİCARET // CANAKKALE // TURKIYE</span>
+<span class="">YAPIM AŞAMASINDA // UNDER CONSTRUCTION // ASTIM TİCARET MERKEZİ // YENİ NESİL TİCARET // CANAKKALE // TURKIYE</span>
+<span class="">YAPIM AŞAMASINDA // UNDER CONSTRUCTION // ASTIM TİCARET MERKEZİ // YENİ NESİL TİCARET // CANAKKALE // TURKIYE</span>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-ink-black dark:bg-ink-black text-bone-white grid grid-cols-1 md:grid-cols-2 w-full p-margin-desktop gap-stack-lg border-t border-bone-white">
+<div class="flex flex-col justify-between gap-stack-lg">
+<div>
+<h4 class="text-headline-lg font-headline-lg text-industrial-orange mb-stack-md">ASTİM TİCARET</h4>
+<p class="text-meta-mono font-meta-mono opacity-80 max-w-sm uppercase">TÜRKİYE'NİN YENİ ENDÜSTRİYEL ODAĞI. MODERNE YATIRIM, GELECEĞE İMZA.</p>
+</div>
+<p class="text-meta-mono font-meta-mono opacity-50">©2024 ASTIM INDUSTRIAL TRADE CENTER. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="grid grid-cols-2 gap-stack-lg">
+<div class="flex flex-col gap-2">
+<span class="text-meta-mono font-meta-mono text-industrial-orange mb-2">BİZİ TAKİP EDİN</span>
+<a class="text-bone-white opacity-80 hover:text-industrial-orange transition-none flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-sm">link</span> INSTAGRAM
+                </a>
+<a class="text-bone-white opacity-80 hover:text-industrial-orange transition-none flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-sm">link</span> LINKEDIN
+                </a>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-meta-mono font-meta-mono text-industrial-orange mb-2">KURUMSAL</span>
+<a class="text-bone-white opacity-80 hover:text-industrial-orange transition-none" href="#">PRIVACY POLICY</a>
+<a class="text-bone-white opacity-80 hover:text-industrial-orange transition-none" href="#">SITE MAP</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for status bars randomization or visual flair
+        document.querySelectorAll('.h-full.bg-acid-green').forEach(bar => {
+            bar.addEventListener('mouseenter', () => {
+                bar.classList.add('brightness-150');
+            });
+            bar.addEventListener('mouseleave', () => {
+                bar.classList.remove('brightness-150');
+            });
+        });
+
+        // Marquee animation keyframe injection
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+
+</body></html>

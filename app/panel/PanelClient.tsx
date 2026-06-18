@@ -68,6 +68,7 @@ type AtolyeData = {
   subId: number;
   businessName: string | null;
   ownerName: string | null;
+  contactPerson: string | null;
   category: string | null;
   logo: string | null;
   phone: string | null;
@@ -87,6 +88,7 @@ type AtolyeData = {
 const TEXT_FIELDS = [
   { key: "businessName", label: "FİRMA ADI", type: "text", placeholder: "Örn: Ahmet Tekstil" },
   { key: "ownerName", label: "YETKİLİ ADI", type: "text", placeholder: "Örn: Ahmet Yılmaz" },
+  { key: "contactPerson", label: "İLETİŞİM KİŞİSİ", type: "text", placeholder: "Örn: Mehmet Kaya (Müdür)" },
   { key: "taxNumber", label: "VERGİ NUMARASI", type: "text", placeholder: "10 haneli vergi no" },
   { key: "address", label: "ADRES", type: "text", placeholder: "Atölye adresi" },
   { key: "phone", label: "TELEFON", type: "tel", placeholder: "0555 000 00 00" },
@@ -109,6 +111,7 @@ function AtolyeEditModal({
   const [form, setForm] = useState({
     businessName: atolye?.businessName ?? "",
     ownerName: atolye?.ownerName ?? "",
+    contactPerson: atolye?.contactPerson ?? "",
     category: atolye?.category ?? "",
     taxNumber: atolye?.taxNumber ?? "",
     address: atolye?.address ?? "",

@@ -3,12 +3,12 @@ import { getAtolyeler, saveAtolyeler, parseFirmId } from "@/lib/github";
 import { NextResponse } from "next/server";
 
 const ALLOWED_FIELDS = [
-  "businessName", "ownerName", "category", "logo", "phone", "website",
+  "businessName", "ownerName", "contactPerson", "category", "logo", "phone", "website",
   "instagram", "whatsapp", "description", "taxNumber", "address", "workingHours",
 ];
 
 const EMPTY_FIRM = {
-  businessName: null, ownerName: null, category: null, logo: null,
+  businessName: null, ownerName: null, contactPerson: null, category: null, logo: null,
   phone: null, website: null, instagram: null, whatsapp: null,
   description: null, taxNumber: null, address: null, workingHours: null,
   brands: [], isActive: false,

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEFES HARITALARI — 2566</title>
+<meta name="description" content="540 yil sonra dunya sehirlerinin hava kalitesi ve solunum atlasi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F3F0;--ink:#111111;--orange:#FF4A00;--acid:#DFFF00;--line:1px solid #111111;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;overflow-x:hidden;}
+/* CURSOR */
+.cursor{width:12px;height:12px;background:var(--ink);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:multiply;}
+.cursor.big{width:40px;height:40px;background:var(--orange);}
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--ink);z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .8s,visibility .8s;}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.ld-year{font-family:'Space Mono',monospace;font-size:clamp(52px,10vw,96px);color:var(--acid);letter-spacing:-4px;line-height:1;}
+.ld-txt{font-family:'Space Mono',monospace;font-size:clamp(10px,2vw,14px);color:var(--bg);letter-spacing:4px;text-transform:uppercase;}
+.ld-bar-wrap{width:260px;height:2px;background:rgba(255,255,255,.15);}
+.ld-bar{height:100%;background:var(--acid);width:0;transition:width 2.4s ease;}
+/* HEADER */
+header{border-bottom:var(--line);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 24px;position:sticky;top:0;background:var(--bg);z-index:200;}
+.h-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#666;}
+.h-logo{font-family:'Space Mono',monospace;font-size:clamp(11px,1.8vw,15px);font-weight:700;letter-spacing:2px;text-align:center;text-transform:uppercase;}
+.h-nav{display:flex;justify-content:flex-end;gap:10px;}
+.nav-btn{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;border:var(--line);padding:5px 12px;background:transparent;cursor:pointer;text-decoration:none;color:var(--ink);transition:background .15s,color .15s;}
+.nav-btn:hover{background:var(--ink);color:var(--bg);}
+/* HERO */
+.hero{border-bottom:var(--line);display:grid;grid-template-columns:1fr 1fr;min-height:88vh;}
+@media(max-width:768px){.hero{grid-template-columns:1fr;}}
+.hero-l{border-right:var(--line);padding:48px 36px;display:flex;flex-direction:column;justify-content:space-between;}
+@media(max-width:768px){.hero-l{border-right:none;border-bottom:var(--line);}}
+.eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:10px;}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--orange);}
+.hero-title{font-family:'Space Mono',monospace;font-size:clamp(44px,7.5vw,92px);font-weight:700;line-height:.9;letter-spacing:-3px;text-transform:uppercase;margin:20px 0;}
+.hero-title em{font-style:normal;color:var(--orange);}
+.hero-manifesto{font-size:13px;line-height:1.9;color:#444;max-width:420px;border-left:3px solid var(--acid);padding-left:16px;margin-top:8px;}
+.hero-r{padding:48px 36px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+#pCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35;}
+.stats-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:1px;border:var(--line);background:var(--ink);}
+.stat-cell{background:var(--bg);padding:22px 18px;cursor:default;transition:background .15s,color .15s;}
+.stat-cell:hover{background:var(--ink);color:var(--bg);}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;opacity:.6;margin-bottom:8px;}
+.stat-val{font-family:'Space Mono',monospace;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1;}
+.stat-val.r{color:var(--orange);}
+.stat-val.g{color:#007a3d;}
+/* TICKER */
+.ticker{border-bottom:var(--line);background:var(--ink);color:var(--bg);padding:9px 0;overflow:hidden;white-space:nowrap;}
+.ticker-in{display:inline-flex;gap:60px;animation:tick 35s linear infinite;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* MAP */
+.map-section{border-bottom:var(--line);}
+.sec-hdr{border-bottom:var(--line);padding:18px 24px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;}
+.sec-ttl{font-family:'Space Mono',monospace;font-size:clamp(9px,1.4vw,12px);letter-spacing:3px;text-transform:uppercase;}
+.sec-cnt{font-family:'Space Mono',monospace;font-size:9px;color:#999;letter-spacing:1px;}
+.map-wrap{padding:28px 24px;background:#080808;position:relative;overflow:hidden;}
+.map-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:36px 36px;pointer-events:none;}
+.map-legend{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px;display:flex;flex-wrap:wrap;gap:12px;}
+.map-legend span{display:flex;align-items:center;gap:5px;}
+.map-container{position:relative;}
+.map-container svg{width:100%;display:block;opacity:.16;}
+.dot-layer{position:absolute;inset:0;pointer-events:none;}
+.mdot{position:absolute;transform:translate(-50%,-50%);pointer-events:all;cursor:pointer;}
+.dpulse{width:11px;height:11px;border-radius:50%;background:var(--dc);border:2px solid rgba(255,255,255,.25);position:relative;transition:transform .2s;}
+.mdot:hover .dpulse{transform:scale(2.2);}
+.dpulse::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--dc);animation:pulse 2.2s ease-out infinite;opacity:0;}
+@keyframes pulse{0%{opacity:.7;transform:scale(.5)}100%{opacity:0;transform:scale(2.8)}}
+.dtooltip{position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:var(--bg);border:var(--line);padding:5px 9px;white-space:nowrap;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;pointer-events:none;opacity:0;transition:opacity .15s;z-index:20;}
+.mdot:hover .dtooltip{opacity:1;}
+/* SEARCH + FILTER */
+.search-wrap{border-bottom:var(--line);position:relative;}
+.search-input{width:100%;padding:17px 24px 17px 52px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:1px;border:none;background:transparent;outline:none;color:var(--ink);}
+.search-input::placeholder{color:#aaa;}
+.s-icon{position:absolute;left:22px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;}
+.filter-bar{border-bottom:var(--line);padding:14px 24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.f-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#666;margin-right:6px;}
+.fbtn{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;border:var(--line);padding:5px 13px;background:transparent;cursor:pointer;transition:background .15s,color .15s;}
+.fbtn:hover,.fbtn.on{background:var(--ink);color:var(--bg);}
+.fbtn.on-safe{background:#007a3d;border-color:#007a3d;color:#fff;}
+.fbtn.on-danger{background:var(--orange);border-color:var(--orange);color:#fff;}
+/* CITY GRID */
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));border-left:var(--line);}
+@media(max-width:600px){.city-grid{grid-template-columns:1fr;}}
+.ccard{border-right:var(--line);border-bottom:var(--line);padding:26px 22px;cursor:pointer;transition:background .15s,color .15s;position:relative;overflow:hidden;}
+.ccard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--cc);}
+.ccard:hover{background:var(--ink);color:var(--bg);}
+.ccard:hover .c-country,.ccard:hover .c-meta{color:rgba(255,255,255,.45);}
+.ccard:hover .c-preview{color:rgba(255,255,255,.65);}
+.ccard:hover .aqi-inner{background:rgba(255,255,255,.3);}
+.c-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.c-name{font-family:'Space Mono',monospace;font-size:clamp(17px,2.5vw,22px);font-weight:700;line-height:1.1;letter-spacing:-.5px;}
+.c-country{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#777;margin-top:4px;transition:color .15s;}
+.aqi-badge{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;padding:6px 10px;background:var(--cc);color:var(--ct);flex-shrink:0;min-width:68px;text-align:center;}
+.c-meta{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#666;margin-bottom:10px;transition:color .15s;}
+.aqi-bar{height:3px;background:rgba(0,0,0,.1);margin:6px 0 14px;}
+.aqi-inner{height:100%;background:var(--cc);transition:background .15s;}
+.c-preview{font-size:11px;line-height:1.75;color:#555;transition:color .15s;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.c-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;}
+.ctag{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;border:1px solid currentColor;padding:2px 7px;opacity:.65;}
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:800;display:flex;align-items:center;justify-content:center;padding:14px;opacity:0;pointer-events:none;transition:opacity .25s;}
+.overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--bg);border:var(--line);width:100%;max-width:700px;max-height:92vh;overflow-y:auto;transform:translateY(20px);transition:transform .25s;}
+.overlay.open .modal{transform:translateY(0);}
+.m-hdr{border-bottom:var(--line);padding:22px 26px;display:flex;justify-content:space-between;align-items:flex-start;position:sticky;top:0;background:var(--bg);z-index:2;}
+.m-city{font-family:'Space Mono',monospace;font-size:clamp(22px,5vw,38px);font-weight:700;letter-spacing:-1px;line-height:1;}
+.m-country{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#666;margin-top:5px;}
+.m-close{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;border:var(--line);padding:7px 14px;background:transparent;cursor:pointer;flex-shrink:0;transition:background .15s,color .15s;}
+.m-close:hover{background:var(--ink);color:var(--bg);}
+.m-body{padding:26px;}
+/* AQI visual */
+.aqi-vis{border:var(--line);padding:18px;margin-bottom:24px;}
+.aqi-vis-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:10px;}
+.aqi-scale{display:flex;height:14px;margin-bottom:6px;}
+.aqi-seg{flex:1;}
+.aqi-ptr{position:relative;height:7px;margin-bottom:4px;}
+.aqi-needle{position:absolute;top:0;width:2px;height:7px;background:var(--ink);transform:translateX(-50%);}
+.aqi-num{font-family:'Space Mono',monospace;font-size:52px;font-weight:700;line-height:1;}
+.aqi-status{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-top:2px;}
+/* Stats grid */
+.m-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink);border:var(--line);margin-bottom:24px;}
+@media(max-width:480px){.m-stats{grid-template-columns:1fr;}}
+.m-stat{background:var(--bg);padding:18px 16px;}
+.m-stat-lbl{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:5px;}
+.m-stat-val{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;line-height:1;}
+.m-stat-sub{font-size:10px;color:#666;margin-top:3px;}
+/* modal sections */
+.m-sec-ttl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;border-bottom:var(--line);padding-bottom:7px;margin-bottom:14px;color:#555;}
+.m-story{font-size:13px;line-height:1.95;color:#333;margin-bottom:24px;}
+.m-story p{margin-bottom:12px;}
+.m-human{border:var(--line);padding:18px;margin-bottom:24px;position:relative;}
+.m-human::before{content:'"';font-family:'Space Mono',monospace;font-size:72px;position:absolute;top:-18px;left:10px;color:var(--acid);line-height:1;}
+.h-quote{font-size:14px;line-height:1.85;font-style:italic;color:#222;padding-top:18px;margin-bottom:10px;}
+.h-name{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);}
+.h-role{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:#888;margin-top:2px;}
+/* TIMELINE */
+.timeline-sec{border-bottom:var(--line);}
+.tl-wrap{padding:36px 24px;overflow-x:auto;}
+.tl{display:flex;min-width:760px;border-top:2px solid var(--ink);padding-top:18px;position:relative;}
+.tl-item{flex:1;padding:0 14px;border-right:var(--line);}
+.tl-item:last-child{border-right:none;}
+.tl-dot{width:10px;height:10px;border-radius:50%;position:absolute;top:-24px;border:2px solid var(--ink);background:var(--bg);}
+.tl-year{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--orange);margin-bottom:6px;}
+.tl-aqi{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;margin-bottom:4px;}
+.tl-ev{font-size:11px;line-height:1.6;color:#444;}
+/* PHILOSOPHY */
+.phi-sec{border-bottom:var(--line);display:grid;grid-template-columns:1fr 1fr;}
+@media(max-width:768px){.phi-sec{grid-template-columns:1fr;}}
+.phi-l{border-right:var(--line);padding:48px 36px;}
+@media(max-width:768px){.phi-l{border-right:none;border-bottom:var(--line);}}
+.phi-r{padding:48px 36px;}
+.big-q{font-family:'Space Mono',monospace;font-size:clamp(26px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-2px;margin-bottom:22px;}
+.big-q em{font-style:normal;color:var(--orange);}
+.pull-q{font-size:13px;line-height:1.95;color:#444;border-top:var(--line);padding-top:18px;}
+.phi-list{list-style:none;}
+.phi-list li{border-bottom:var(--line);padding:18px 0;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;}
+.phi-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--orange);}
+.phi-txt{font-size:12px;line-height:1.75;color:#333;}
+.phi-txt strong{display:block;font-family:'Space Mono',monospace;font-size:11px;margin-bottom:3px;}
+/* FOOTER */
+footer{border-top:var(--line);padding:28px 24px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;}
+@media(max-width:600px){footer{grid-template-columns:1fr;}}
+.f-brand{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;}
+.f-note{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#aaa;text-align:right;line-height:1.6;}
+/* UTIL */
+.hidden-card{display:none!important;}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s,transform .55s;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-thumb{background:var(--ink);}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-year">2566</div>
+  <div class="ld-txt">Nefes Haritaları — Başlatılıyor</div>
+  <div class="ld-bar-wrap"><div class="ld-bar" id="ldBar"></div></div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="m-hdr">
+      <div>
+        <div class="m-city" id="mCity">—</div>
+        <div class="m-country" id="mCountry">—</div>
+      </div>
+      <button class="m-close" id="mClose">Kapat ×</button>
+    </div>
+    <div class="m-body">
+      <div class="aqi-vis">
+        <div class="aqi-vis-lbl">— Hava Kalitesi Endeksi (AQI) 2566 —</div>
+        <div class="aqi-scale">
+          <div class="aqi-seg" style="background:#00b050"></div>
+          <div class="aqi-seg" style="background:#92d050"></div>
+          <div class="aqi-seg" style="background:#DFFF00"></div>
+          <div class="aqi-seg" style="background:#FF8C00"></div>
+          <div class="aqi-seg" style="background:#FF0000"></div>
+          <div class="aqi-seg" style="background:#7B0099"></div>
+        </div>
+        <div class="aqi-ptr"><div class="aqi-needle" id="aqiNeedle" style="left:0%"></div></div>
+        <div class="aqi-num" id="aqiNum">—</div>
+        <div class="aqi-status" id="aqiStatus">—</div>
+      </div>
+      <div class="m-stats" id="mStats"></div>
+      <div class="m-sec-ttl">— Şehir Öyküsü —</div>
+      <div class="m-story" id="mStory"></div>
+      <div class="m-sec-ttl">— İnsan Hikayesi —</div>
+      <div class="m-human">
+        <div class="h-quote" id="hQuote"></div>
+        <div class="h-name" id="hName"></div>
+        <div class="h-role" id="hRole"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="h-tag">Atlas / 2566</div>
+  <div class="h-logo">Nefes Haritaları</div>
+  <div class="h-nav">
+    <a class="nav-btn" href="#cities">Şehirler</a>
+    <a class="nav-btn" href="#phi">Manifesto</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-l">
+    <div>
+      <div class="eyebrow">Yıl 2566 — Atmosferik Atlas</div>
+      <h1 class="hero-title">NEFES<br><em>HARİ</em><br>TALARI</h1>
+    </div>
+    <p class="hero-manifesto">
+      Görünmeyenin haritası. 540 yıl sonra dünyanın şehirlerinde solunabilirlik endeksleri, sınıfsal hava ayrımı ve insanların nefes alma mücadelesi. Calvino'nun görünmez şehirleri artık havaya karıştı.
+    </p>
+  </div>
+  <div class="hero-r">
+    <canvas id="pCanvas"></canvas>
+    <div class="stats-grid">
+      <div class="stat-cell"><div class="stat-lbl">Global Ort. AQI</div><div class="stat-val r" id="gAqi">—</div></div>
+      <div class="stat-cell"><div class="stat-lbl">Temiz Hava Şehri</div><div class="stat-val g" id="gClean">—</div></div>
+      <div class="stat-cell"><div class="stat-lbl">Tehlikeli Bölge</div><div class="stat-val r" id="gDanger">—</div></div>
+      <div class="stat-cell"><div class="stat-lbl">İzlenen Şehir</div><div class="stat-val" id="gCount">—</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-in" id="tickerIn"></div></div>
+
+<!-- MAP -->
+<section class="map-section" id="map">
+  <div class="sec-hdr">
+    <div class="sec-ttl">— Dünya Atmosfer Haritası —</div>
+    <div class="sec-cnt">49 Şehir / 6 Kıta</div>
+  </div>
+  <div class="map-wrap">
+    <div class="map-grid-bg"></div>
+    <div class="map-legend">
+      <span><span style="color:#00b050;font-size:14px">■</span> Temiz (0-100)</span>
+      <span><span style="color:#DFFF00;font-size:14px">■</span> Orta (101-200)</span>
+      <span><span style="color:#FF8C00;font-size:14px">■</span> Sağlıksız (201-300)</span>
+      <span><span style="color:#FF0000;font-size:14px">■</span> Çok Sağlıksız (301-400)</span>
+      <span><span style="color:#7B0099;font-size:14px">■</span> Tehlikeli (400+)</span>
+    </div>
+    <div class="map-container">
+      <svg viewBox="0 0 1000 500" fill="#ccc" stroke="#555" stroke-width="0.6">
+        <path d="M80,80 L200,58 L255,88 L265,138 L225,178 L205,222 L172,262 L132,242 L100,200 L68,148 Z"/>
+        <path d="M198,270 L242,258 L272,290 L282,342 L262,402 L230,432 L198,422 L183,382 L188,320 Z"/>
+        <path d="M428,68 L492,58 L522,78 L512,118 L480,140 L448,130 L418,110 Z"/>
+        <path d="M438,148 L502,138 L542,158 L552,220 L530,292 L500,342 L468,332 L448,278 L428,220 L428,178 Z"/>
+        <path d="M518,58 L702,48 L822,78 L852,140 L802,180 L742,200 L682,190 L622,168 L558,148 L518,118 Z"/>
+        <path d="M718,178 L782,168 L812,200 L792,242 L752,252 L718,230 Z"/>
+        <path d="M758,298 L858,288 L900,330 L890,382 L840,402 L778,392 L748,352 Z"/>
+        <path d="M278,38 L332,28 L352,55 L320,72 L282,65 Z"/>
+        <path d="M870,200 L920,195 L940,220 L930,250 L895,255 L868,230 Z"/>
+      </svg>
+      <div class="dot-layer" id="dotLayer"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH + CITIES -->
+<div id="cities">
+  <div class="search-wrap">
+    <span class="s-icon">⌕</span>
+    <input class="search-input" id="searchIn" placeholder="Şehir veya ülke ara..." type="text" autocomplete="off">
+  </div>
+  <div class="filter-bar">
+    <span class="f-lbl">Filtre:</span>
+    <button class="fbtn on" data-f="all">Tümü</button>
+    <button class="fbtn" data-f="clean">Temiz (0-100)</button>
+    <button class="fbtn" data-f="moderate">Orta (101-200)</button>
+    <button class="fbtn" data-f="danger">Tehlikeli (201+)</button>
+    <button class="fbtn" data-f="asia">Asya</button>
+    <button class="fbtn" data-f="europe">Avrupa</button>
+    <button class="fbtn" data-f="americas">Amerika</button>
+    <button class="fbtn" data-f="africa">Afrika</button>
+    <button class="fbtn" data-f="oceania">Okyanusya</button>
+  </div>
+  <div class="sec-hdr">
+    <div class="sec-ttl">— Şehir Endeksleri —</div>
+    <div class="sec-cnt" id="visCount">49 / 49 Şehir</div>
+  </div>
+  <div class="city-grid" id="cityGrid"></div>
+</div>
+
+<!-- TIMELINE -->
+<section class="timeline-sec">
+  <div class="sec-hdr">
+    <div class="sec-ttl">— Atmosfer Tarihsel Zaman Çizelgesi —</div>
+    <div class="sec-cnt">2026 → 2566</div>
+  </div>
+  <div class="tl-wrap"><div class="tl" id="tl"></div></div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="phi-sec" id="phi">
+  <div class="phi-l">
+    <div class="big-q">Görünmez şehirler kaybolmadı;<br><em>sadece havaya karıştı.</em></div>
+    <div class="pull-q">
+      Nefes Haritaları, Italo Calvino'nun kentleri birer anlatı biçimi olarak kurduğu dünyasında, görünmeyenin yeniden yazımıdır. Atmosferin kendisi artık hikâyenin merkezindedir. Şehir artık bir hikâye değil, bir solunum durumu haline gelir.
+      <br><br>
+      540 yıl sonrasında hava eşit dağılmayan bir kaynağa dönüşmüştür. Bazı şehirlerde hava filtrelenir, paketlenir, satın alınır; bazı sokaklarda ise çıplak haliyle, kirli ve ağır biçimde solunur. Nefes almak bir hak olmaktan çıkmış, bir ayrıcalık haline gelmiştir.
+    </div>
+  </div>
+  <div class="phi-r">
+    <ul class="phi-list">
+      <li>
+        <span class="phi-num">01</span>
+        <span class="phi-txt"><strong>Filtrelenmiş Hava (Elit Yapı)</strong>Üst sınıf konutlar, akıllı hava filtreleme sistemleriyle donatılmış kapalı atmosfer kabarcıkları içinde var olur. Temiz nefes almak bir ayrıcalıktır.</span>
+      </li>
+      <li>
+        <span class="phi-num">02</span>
+        <span class="phi-txt"><strong>Çıplak Hava (Yoksul Yaşam)</strong>Alt mahalleler ve kıyı şehirleri; kirli, ağır ve boğucu havayla baş başa yaşar. Solunum yolu hastalıkları toplumun normaline dönüşmüştür.</span>
+      </li>
+      <li>
+        <span class="phi-num">03</span>
+        <span class="phi-txt"><strong>Göç ve Solunum</strong>İnsanlar artık ekonomik nedenlerle değil, nefes alabilmek için göç ediyor. "Hava mültecileri" yeni bir toplumsal kategori oluşturmuştur.</span>
+      </li>
+      <li>
+        <span class="phi-num">04</span>
+        <span class="phi-txt"><strong>Sanal Varoluş</strong>Fiziksel alanlarda nefes almanın tehlikeli olduğu şehirlerde, sosyal yaşam tamamen dijital ağlara taşınmıştır. Bedenler içeride, kimlikler dışarıda.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Nefes Haritaları © 2566 — Atmosfer Atlası</div>
+  <div class="f-note">Veriler: Küresel Atmosferik İzleme / IPCC-2566<br>İnşa: 16.06.2026 — Projeksiyon: 540 Yıl İleri</div>
+</footer>
+
+<script>
+const C=[
+  {id:1,name:"Şanghay",country:"Çin",region:"asia",aqi:387,water:42,health:"Kronik Solunum",mode:"Sanal",social:2,lat:31.2,lon:121.5,
+   story:"<p>Şanghay 2566'da dünyanın en kalabalık 'kapalı alan' megapolüdür. Şehrin %70'i yeraltı ve kapalı tünellerden oluşan bir ağ içine taşınmıştır. Yüzey kattaki hava PM2.5 değerleriyle insan solunum sistemini 30 dakika içinde hasar görecek düzeye ulaştırmaktadır.</p><p>Üst gelir grupları 'Kristal Mahalleler' adı verilen yapay atmosferle korunan cam kubbeler altında yaşar. Geri kalan 40 milyon kişi ise N99 maskeleri ve 'oksijen barı' ziyaretleriyle hayatta kalmaya çalışır.</p>",
+   quote:"Her sabah maskeyi takarken annemin yüzünü hatırlıyorum. O zamanlar dışarı çıkmak normal bir şeydi. Biz bu normalliği hiç yaşamadık.",person:"Chen Xiaomei",role:"Üretim İşçisi, Huangpu Bölgesi, 47 Yaş"},
+  {id:2,name:"Tokyo",country:"Japonya",region:"asia",aqi:148,water:88,health:"Orta Solunum",mode:"Hibrit",social:6,lat:35.7,lon:139.7,
+   story:"<p>Tokyo, iklim krizine en iyi hazırlanan Asya şehirlerinden biri olarak 2566'ya ulaşmıştır. Nano-filtrasyon teknolojisi ve kentsel orman sistemleri şehrin AQI değerini kontrol altında tutmaktadır. Mevsimsel toz fırtınaları ise kış aylarında kritik seviyelere ulaşmaktadır.</p><p>Toplum 'iç mekân kültürü' etrafında yeniden örgütlenmiş; pek çok sosyal ritüel kapalı alanlarda sürdürülmektedir.</p>",
+   quote:"Babam bana sakura festivallerinden bahsederdi. Şimdi o festivaller hologram olarak yaşanıyor. Güzel ama... aynı değil.",person:"Yuki Tanaka",role:"Ekoloji Mimarı, Shibuya, 33 Yaş"},
+  {id:3,name:"Yeni Delhi",country:"Hindistan",region:"asia",aqi:478,water:18,health:"Şiddetli Kronik",mode:"Sanal",social:1,lat:28.6,lon:77.2,
+   story:"<p>Yeni Delhi, 2566'nın dünyasında 'Ölü Şehir' kategorisine giren az sayıdaki yerleşim alanından biridir. Yüzey yaşamı neredeyse tamamen terk edilmiş, şehrin yeraltı bölümleri 12 milyon kişiyi barındırmaktadır.</p><p>BM Atmosfer Acil Operasyonları Delhi'de 2498'den bu yana insani yardım yürütmektedir. Günlük 'oksijen dağıtımı' saatleri şehrin en kritik toplumsal organizasyonu haline gelmiştir.</p>",
+   quote:"Dedelerim bu şehrin açık gökyüzünü görmüş. Ben gökyüzünü yalnızca pencere projeksiyonlarından tanıyorum. Mavi rengi en sevdiğim renk, ama hiç gerçeğini solumadım.",person:"Priya Sharma",role:"Yeraltı Öğretmeni, Güney Delhi Sektörü 7, 29 Yaş"},
+  {id:4,name:"Singapur",country:"Singapur",region:"asia",aqi:38,water:99,health:"Sağlıklı",mode:"Fiziksel",social:9,lat:1.3,lon:103.8,
+   story:"<p>Singapur, 2566'nın en başarılı 'yapay atmosfer' projesi olarak öne çıkar. 2180'lerde başlattığı 'Singapur Kupolu' projesiyle tüm şehri kontrollü bir hava zarfına almıştır. Bu başarının bedeli yüksektir: kupol içinde yaşamak ciddi ekonomik güç gerektirmektedir.</p>",
+   quote:"İnsanlar bize 'şanslısınız' diyor. Evet şanslıyız. Ama her gün temiz hava için ödediğimiz vergiyi de gördüklerinde aynı şeyi söylerler mi bilmiyorum.",person:"Lim Wei",role:"Atmosfer Sistemi Mühendisi, 41 Yaş"},
+  {id:5,name:"Pekin",country:"Çin",region:"asia",aqi:421,water:31,health:"Şiddetli Kronik",mode:"Sanal",social:1,lat:39.9,lon:116.4,
+   story:"<p>Pekin, dünya tarihinin en uzun soluklu hava kirliliği krizini yaşayan şehir olma unvanını 2566'ya taşımaktadır. 300 yıllık endüstriyel miras ve iklim değişikliğinin birikmesi şehri neredeyse solunulmaz kılmıştır.</p><p>'Kırmızı Şehir' kodu altında faaliyet gösteren Pekin'de zorunlu çalışma saatleri dışında sokağa çıkış yasaklanmıştır.</p>",
+   quote:"Tarihi metinlerde 'açık hava pazarları'ndan bahsediliyor. Büyükbabam anlattı: insanlar yemek yemek için dışarıya çıkarlarmış. Bu bana peri masalı gibi geliyor.",person:"Liu Yang",role:"Arşiv Çalışanı, Çongwen Yeraltı Kompleksi, 52 Yaş"},
+  {id:6,name:"Seul",country:"Güney Kore",region:"asia",aqi:201,water:76,health:"Kronik Orta",mode:"Hibrit",social:4,lat:37.6,lon:127.0,
+   story:"<p>Seul, 2566'da teknolojik uyum ve insan direncinin bir arada var olduğu nadir örneklerden biridir. Akıllı hava filtreleme sistemleri şehrin büyük bölümünü korurken, gece açık alanlar 'Maske Bölgeleri' olarak işaretlenmiştir.</p>",
+   quote:"Annemin düğün fotoğrafı var, dışarıda çekilmiş, maskesiz. O fotoğrafı her gün seyrediyorum.",person:"Kim Jae-won",role:"Dijital Terapist, 38 Yaş"},
+  {id:7,name:"Bangkok",country:"Tayland",region:"asia",aqi:312,water:44,health:"Ağır Kronik",mode:"Hibrit",social:3,lat:13.8,lon:100.5,
+   story:"<p>Bangkok'ta yükselen deniz seviyesi ve hava kirliliği çift yönlü bir felaket yaratmıştır. Şehrin kıyı bölgeleri kısmen su altındadır, kalan nüfus orta-yüksek rakımlı alanlara sıkışmıştır.</p>",
+   quote:"Çocukken babam beni Chao Phraya nehrine götürürdü. Şimdi o nehrin olduğu yerde deniz var. Ve o deniz de zehirli.",person:"Nong Siriwan",role:"Su Mühendisi, 44 Yaş"},
+  {id:8,name:"Karachi",country:"Pakistan",region:"asia",aqi:445,water:12,health:"Kritik",mode:"Sanal",social:1,lat:24.9,lon:67.0,
+   story:"<p>Karachi, 2566'nın insanlığın en büyük atmosferik kriziyle boğuşan şehridir. Aşırı sıcaklar, su kıtlığı ve hava kirliliğinin üçlü baskısı altında şehrin nüfusu 2480'den bu yana dramatik biçimde düşmektedir.</p>",
+   quote:"Biz sadece nefes almak istiyoruz. Bu kadar. Başka bir şey değil. Sadece nefes.",person:"Fatima Malik",role:"Şehir Göçmeni, Eski Karachi Sakinesi, 61 Yaş"},
+  {id:9,name:"Osaka",country:"Japonya",region:"asia",aqi:112,water:91,health:"Hafif Kronik",mode:"Fiziksel",social:7,lat:34.7,lon:135.5,
+   story:"<p>Osaka, Japonya'nın en başarılı 'yeşil entegrasyon' modelini uygulamaktadır. Dikey bahçeler ve kentsel ekosistem projeleri şehrin AQI değerini kabul edilebilir sınırlarda tutmaktadır.</p>",
+   quote:"Şehrimizde hâlâ dışarıda yemek yenebilir. Bunu söylemek için ne garip bir cümle... Ama bu artık ayrıcalık.",person:"Haruto Ito",role:"Kentsel Ekoloji Uzmanı, 36 Yaş"},
+  {id:10,name:"Kolkata",country:"Hindistan",region:"asia",aqi:392,water:22,health:"Şiddetli Kronik",mode:"Sanal",social:2,lat:22.6,lon:88.4,
+   story:"<p>Kolkata, Hindistan'ın solunum krizinin en ağır yaşandığı şehirlerinden biridir. Endüstri artıkları ve iklim krizinin birikmesi, Ganj deltasındaki bu şehri adeta yaşanmaz kılmıştır.</p>",
+   quote:"Anneannem şiir yazardı, dışarıda otururdu ve kalem tutardı. Ben şiirlerimi yeraltı sığınaklarında yazıyorum.",person:"Ananya Bose",role:"Şair ve Öğretmen, 27 Yaş"},
+  {id:11,name:"İstanbul",country:"Türkiye",region:"europe",aqi:187,water:65,health:"Orta Kronik",mode:"Hibrit",social:5,lat:41.0,lon:28.9,
+   story:"<p>İstanbul, Avrupa ve Asya'nın kesişiminde 2566'da nefes krizi ile kültürel direncin iç içe geçtiği nadir örneklerden biridir. Boğaz'ın rüzgarları şehrin bazı bölgelerini kurtarırken Anadolu yakası endüstriyel kirlilikle boğuşmaktadır.</p><p>'Hava Piyadesi' adı verilen gönüllü örgütler, çocukları temiz hava alanlarına taşıyan toplumsal dayanışmanın simgesi haline gelmiştir.</p>",
+   quote:"Boğaz'a baktığımda hâlâ güzellik görüyorum. Ama bazen sabah erken, hava en az kirli olduğu zaman, maske olmadan birkaç dakika oturuyorum. O anlar için yaşıyorum.",person:"Ayşe Kaya",role:"Hava Piyadesi Gönüllüsü, Üsküdar, 34 Yaş"},
+  {id:12,name:"Londra",country:"İngiltere",region:"europe",aqi:78,water:94,health:"Hafif",mode:"Fiziksel",social:8,lat:51.5,lon:-0.1,
+   story:"<p>Londra, 2566'nın en başarılı 'kentsel dönüşüm' hikayelerinden birini yazmıştır. 21. yüzyılın ikinci yarısındaki agresif karbon tarafsızlığı politikaları, şehrin hava kalitesini tarihsel olarak en iyi düzeylerine taşımıştır.</p>",
+   quote:"Büyükbabanın anlattığı 1952 Londra sisi... O dehşeti bir daha yaşamak istemedik. Ve hayatta kalmak için ne yapılması gerektiğini öğrendik.",person:"Amara Osei-Bonsu",role:"İklim Mimarı, Güney Londra, 45 Yaş"},
+  {id:13,name:"Paris",country:"Fransa",region:"europe",aqi:62,water:97,health:"İyi",mode:"Fiziksel",social:9,lat:48.9,lon:2.3,
+   story:"<p>Paris, 2566'da 'Yeşil Başkent' unvanını elinde tutan Avrupa'nın sembol şehridir. 22. yüzyılda başlayan kentsel orman projesi, şehrin tüm çatılarını ve cephelerini canlı ekosistemlerle kaplamıştır.</p>",
+   quote:"Büyükannem Paris'in 'kirli' olduğu zamanlardan bahsederdi. Şimdi Seine boyunca yürüyebiliyorum, derin nefes alabiliyorum. Bu bir lüks değil artık, bir hak.",person:"Chloé Dupont",role:"Ekoloji Mimarı, Marais, 31 Yaş"},
+  {id:14,name:"Berlin",country:"Almanya",region:"europe",aqi:55,water:98,health:"İyi",mode:"Fiziksel",social:9,lat:52.5,lon:13.4,
+   story:"<p>Berlin, Avrupa'nın en kapsamlı 'atmosfer rehabilitasyon' programını uygulayan şehirdir. Sanayi geçmişinin yarattığı kirliliği yüzyıllar içinde temizleyen şehir, 2566'da dünya genelinde model gösterilmektedir.</p>",
+   quote:"Atalarım bu şehrin endüstri dumanları altında yaşadı. Biz artık temiz havayı hak ettiğimizi biliyoruz ve onu korumak için her şeyi yapıyoruz.",person:"Klaus Müller",role:"Çevre Aktivisti, 55 Yaş"},
+  {id:15,name:"Moskova",country:"Rusya",region:"europe",aqi:231,water:72,health:"Orta Kronik",mode:"Hibrit",social:4,lat:55.8,lon:37.6,
+   story:"<p>Moskova, Sibirya'daki büyük orman yangınlarının yarattığı kronik duman sorunuyla 2566'da da boğuşmaktadır. Uzak bölgelerdeki atmosferik felaketlerin etkisi başkente kadar uzanmaktadır.</p>",
+   quote:"Kışın karla birlikte duman da yağıyor artık. Çocuklara beyaz olmayan kar rengi gösteriyorum, anlayabilmelerini istiyorum.",person:"Olga Petrova",role:"İlkokul Öğretmeni, 49 Yaş"},
+  {id:16,name:"Roma",country:"İtalya",region:"europe",aqi:89,water:88,health:"Hafif",mode:"Fiziksel",social:8,lat:41.9,lon:12.5,
+   story:"<p>Roma, Akdeniz ikliminin dönüşümüne rağmen hava kalitesini iyi düzeylerde tutmayı başarmıştır. Tarihi yapılar artık hava kalitesi sensörleriyle donatılmış birer 'atmosfer izleme istasyonu' işlevi görmektedir.</p>",
+   quote:"Colosseum'un taşları artık hava okuyucu. Atalarım orada kan döktü, biz orada nefes ölçüyoruz. İnsanlık değişiyor mu acaba?",person:"Marco Rossi",role:"Tarihi Koruma Mühendisi, 38 Yaş"},
+  {id:17,name:"Varşova",country:"Polonya",region:"europe",aqi:172,water:81,health:"Orta",mode:"Hibrit",social:5,lat:52.2,lon:21.0,
+   story:"<p>Varşova, eski kömür bağımlılığının mirasını 2566'da hâlâ taşımaktadır. Karbonsuzlaşma tamamlanmış olsa da toprakta birikmiş kirleticilerin atmosfere salınımı devam etmektedir.</p>",
+   quote:"Babam maden işçisiydi. Dedesi de. O mirasın bedelini şimdi hep birlikte ödüyoruz.",person:"Anna Wisniewska",role:"Çevre Hukuku Uzmanı, 40 Yaş"},
+  {id:18,name:"New York",country:"ABD",region:"americas",aqi:134,water:87,health:"Orta",mode:"Hibrit",social:6,lat:40.7,lon:-74.0,
+   story:"<p>New York, 2566'da 'iki şehir' gerçekliğini en net yaşayan yerleşim alanıdır. Manhattan'ın üst katları temiz hava kupolleriyle korunurken, alt mahallelerde AQI değerleri kritik seviyelere ulaşmaktadır.</p><p>'Nefes Eşitsizliği Raporu' her yıl yayımlanan ve tüm dünyada takip edilen bir endeks haline gelmiştir.</p>",
+   quote:"Uptown'da soluduğun hava, Downtown'da soluduğun havayla aynı değil. Hep böyleydi. Sadece şimdi ölçülebilir.",person:"Marcus Johnson",role:"Solunum Hakları Aktivisti, Bronx, 42 Yaş"},
+  {id:19,name:"São Paulo",country:"Brezilya",region:"americas",aqi:267,water:48,health:"Ağır Kronik",mode:"Hibrit",social:3,lat:-23.5,lon:-46.6,
+   story:"<p>São Paulo, Amazon ormanlarının büyük bölümünün yok olmasının ardından dünyanın en büyük oksijen açığı yaşayan megapollerinden biri haline gelmiştir. Eski 'ciğer' olan ormanlar artık yoktur.</p>",
+   quote:"Orman yanıyordu, dünya seyrediyordu. Orman bitti, biz yanıyoruz, dünya hâlâ seyrediyor.",person:"Valentina Costa",role:"Orman Yaşam Arşivcisi, 36 Yaş"},
+  {id:20,name:"Los Angeles",country:"ABD",region:"americas",aqi:198,water:53,health:"Orta Kronik",mode:"Hibrit",social:5,lat:34.1,lon:-118.2,
+   story:"<p>Los Angeles, kronik duman sorununu çözmek için kurulan 'yapay yağmur' sistemleri sayesinde kısmen iyileşme kaydetmiştir. Ancak Pasifik'ten gelen deniz asiti buharları yeni bir kirlilik katmanı oluşturmaktadır.</p>",
+   quote:"Hollywood'da artık sadece iç mekanda çekim yapılıyor. Dışarıyı simüle ediyorlar. Hayatın kendisi gibi aslında.",person:"Sofia Ramirez",role:"Film Setleri Koordinatörü, 29 Yaş"},
+  {id:21,name:"Meksiko",country:"Meksika",region:"americas",aqi:318,water:38,health:"Ağır Kronik",mode:"Sanal",social:2,lat:19.4,lon:-99.1,
+   story:"<p>Meksiko şehri, yüksek rakımına rağmen oksijen kıtlığı ve kirlilik sarmalından kurtulamamıştır. 'İnce hava' sorunu artık kimyasal kirleticilerle katlı hale gelmiştir.</p>",
+   quote:"Atalarım bu toprakları solunabilmek için seçti. Şimdi torunlarım bu toprağı terk ediyor. Solunabilmek için.",person:"Diego Hernandez",role:"Göç Danışmanı, 53 Yaş"},
+  {id:22,name:"Buenos Aires",country:"Arjantin",region:"americas",aqi:142,water:79,health:"Orta",mode:"Hibrit",social:6,lat:-34.6,lon:-58.4,
+   story:"<p>Buenos Aires, Güney Amerika'nın 'nefes alınabilir' şehirleri arasında kalmayı başarmıştır. Pampa rüzgarları ve erken dönemde hayata geçirilen yeşil dönüşüm politikaları şehrin atmosferini korumaktadır.</p>",
+   quote:"Tangoya çıkıyorum, dans ediyorum ve nefes alıyorum. Başka ülkelerden insanlar geliyor sadece dışarıda dans etmek için.",person:"Lucia Fernandez",role:"Dans Eğitmeni, 45 Yaş"},
+  {id:23,name:"Toronto",country:"Kanada",region:"americas",aqi:47,water:99,health:"Mükemmel",mode:"Fiziksel",social:10,lat:43.7,lon:-79.4,
+   story:"<p>Toronto, 2566'nın dünyasında 'global hava sığınağı' olarak anılan az sayıdaki şehirden biridir. Kanada ormanlarının sağladığı hava kalitesi ve agresif çevre politikaları şehri yaşanabilir kılmaktadır.</p>",
+   quote:"İnsanlar dünyadan buraya kaçıyor, temiz hava için. Kendimi şanslı hissediyorum, ama bu şans adaletsiz bir sistemin ürünü.",person:"Aiko Chen",role:"Hava Mültecisi Danışmanı, 37 Yaş"},
+  {id:24,name:"Vancouver",country:"Kanada",region:"americas",aqi:35,water:100,health:"Mükemmel",mode:"Fiziksel",social:10,lat:49.3,lon:-123.1,
+   story:"<p>Vancouver, 2566'nın hava kalitesi açısından dünya genelinde ilk üçte yer alan şehirlerinden biridir. Pasifik ormanlarının ve körfez mikro-ikliminin koruması altında şehir bir 'oksijen cenneti' konumundadır.</p>",
+   quote:"Her sabah balkona çıkıyorum. Derin bir nefes alıyorum. Bu basit eylem, dünyanın diğer yarısında bir lüks. Bunu unutmuyorum.",person:"James Park",role:"Doğa Fotoğrafçısı, 28 Yaş"},
+  {id:25,name:"Lagos",country:"Nijerya",region:"africa",aqi:356,water:28,health:"Ağır Kronik",mode:"Sanal",social:2,lat:6.5,lon:3.4,
+   story:"<p>Lagos, Afrika kıtasının en kalabalık şehri ve atmosferik krizin en ağır yaşandığı yerleşim alanlarından biridir. Körfezin yükselen suları ve endüstriyel kirlilik 35 milyonluk nüfusu sıkıştırmaktadır.</p>",
+   quote:"Akdeniz'e geçmek istedik. Hava için. Sudan için. Hayat için. Sınır duvarı bizi durdurdu.",person:"Emeka Okafor",role:"Hava Göçmeni, Lagos Kuzey Kapı Kampı, 31 Yaş"},
+  {id:26,name:"Kahire",country:"Mısır",region:"africa",aqi:334,water:22,health:"Ağır Kronik",mode:"Sanal",social:2,lat:30.1,lon:31.2,
+   story:"<p>Kahire, Nil'in azalan suları ve çölleşme sürecinin hızlanmasıyla birlikte tarihinin en zorlu dönemini yaşamaktadır. Kum fırtınaları artık yılın 180 gününden fazlasını etkilemektedir.</p>",
+   quote:"Firavunlar binlerce yıl önce bu toprağı inşa etti. Biz torunları olarak onu solunmaz hale getirdik.",person:"Mariam Hassan",role:"Miras Koruma Görevlisi, 48 Yaş"},
+  {id:27,name:"Johannesburg",country:"Güney Afrika",region:"africa",aqi:189,water:55,health:"Orta",mode:"Hibrit",social:5,lat:-26.2,lon:28.0,
+   story:"<p>Johannesburg, Güney Afrika'nın enerji dönüşümünü tamamlayan ülkelerden gelmesi sayesinde nispeten daha iyi bir konumdadır. Ancak kuzey komşu ülkelerden gelen kirli hava kütleleri şehri olumsuz etkilemektedir.</p>",
+   quote:"Apartheid döneminde siyahlara temiz su verilmezdi. Şimdi temiz hava ayrımı var. Eşitsizliğin rengi değişiyor ama yüzü aynı kalıyor.",person:"Thabo Dlamini",role:"İnsan Hakları Avukatı, 56 Yaş"},
+  {id:28,name:"Nairobi",country:"Kenya",region:"africa",aqi:112,water:67,health:"Hafif",mode:"Fiziksel",social:7,lat:-1.3,lon:36.8,
+   story:"<p>Nairobi, Afrika kıtasının 'yeşil mucizesi' olarak bilinmektedir. Yüksek rakımı ve Kenya'nın ormansızlaşmaya karşı aldığı önlemler başkentin hava kalitesini korumaktadır.</p>",
+   quote:"Afrika'da temiz hava utanılacak bir şey değil, övünülecek bir şey. Ve onu korumak bizim sorumluluğumuz.",person:"Aisha Mwangi",role:"Çevre Bakanı Danışmanı, 43 Yaş"},
+  {id:29,name:"Dakar",country:"Senegal",region:"africa",aqi:201,water:44,health:"Orta Kronik",mode:"Hibrit",social:4,lat:14.7,lon:-17.5,
+   story:"<p>Dakar, Atlantik rüzgarlarına rağmen Sahra'nın genişleyen çöl tozu ve bölgesel endüstri kirliliğiyle boğuşmaktadır.</p>",
+   quote:"Balıkçılar artık maske takıyor. Deniz üzerinde bile hava kötü. Atalarımız bunu hayal bile edemezdi.",person:"Fatou Diallo",role:"Balıkçı, Yoff Köyü, 39 Yaş"},
+  {id:30,name:"Cape Town",country:"Güney Afrika",region:"africa",aqi:58,water:61,health:"İyi",mode:"Fiziksel",social:8,lat:-33.9,lon:18.4,
+   story:"<p>Cape Town, Atlantik ve Hint Okyanusu'nun çift yönlü rüzgarlarıyla beslenen ve hava kalitesini koruyan nadir Afrika şehirlerinden biridir.</p>",
+   quote:"Tablo Dağı'na bakıyorum ve hâlâ umut görüyorum. Temiz hava da görüyorum. Bu çok şey demek.",person:"Nomvula Zulu",role:"Dağ Rehberi, 31 Yaş"},
+  {id:31,name:"Sidney",country:"Avustralya",region:"oceania",aqi:88,water:83,health:"Hafif",mode:"Fiziksel",social:8,lat:-33.9,lon:151.2,
+   story:"<p>Sidney, 22. yüzyıldaki büyük yangın çağının ardından kapsamlı yeniden ormanlaştırma programlarıyla kendini onarmayı başarmıştır. Pasifik Okyanusu'ndan gelen rüzgarlar ve yenilenmiş ekosistemler şehrin hava kalitesini desteklemektedir.</p>",
+   quote:"Büyük Yangınlar'dan sağ çıkan dedemin anlattıkları var. Kül yağıyordu gökyüzünden. Şimdi ben çocuğuma temiz gökyüzünü gösterebiliyorum.",person:"Emma Chen",role:"Çevre Rehberi, 33 Yaş"},
+  {id:32,name:"Auckland",country:"Yeni Zelanda",region:"oceania",aqi:22,water:100,health:"Mükemmel",mode:"Fiziksel",social:10,lat:-36.9,lon:174.8,
+   story:"<p>Auckland, 2566'nın en temiz havasına sahip büyük şehri unvanını taşımaktadır. Deniz breviyle oluşan doğal hava dolaşımı ve ekosistem koruması, şehri adeta bir 'nefes sığınağı' haline getirmiştir.</p>",
+   quote:"İnsanlar buraya gelir ve ağlar. Sadece temiz hava kokar diye. Bu sizi çok düşündürmeli.",person:"Te Aroha Williams",role:"Maori Kültür Koruyucusu, 58 Yaş"},
+  {id:33,name:"Dubai",country:"BAE",region:"asia",aqi:278,water:94,health:"Orta Kronik",mode:"Hibrit",social:6,lat:25.2,lon:55.3,
+   story:"<p>Dubai, 2566'da 'yapay cennet ve atmosferik cehennem' ikiliğinin simgesidir. Devasa kapalı yaşam kompleksleri içinde mükemmel hava kalitesi sunarken, açık havada kum fırtınaları ve endüstriyel kirlilik egemendir.</p>",
+   quote:"Bu şehirde her şey satın alınabilir: hava, su, toprak. Sahip olmayanlar için ise hiçbir şey ücretsiz değil.",person:"Anwar Al-Rashid",role:"İnşaat İşçisi, 28 Yaş"},
+  {id:34,name:"Riyad",country:"Suudi Arabistan",region:"asia",aqi:301,water:88,health:"Ağır Kronik",mode:"Hibrit",social:4,lat:24.7,lon:46.7,
+   story:"<p>Riyad, petrol çağının mirası ve değişen iklimin sonucu olan kronik kum ve kimyasal kirlilikle boğuşmaktadır. Şehrin büyük bölümü artık kubbeli yapılar altında planlanmaktadır.</p>",
+   quote:"Petrol bizi zengin etti. Ama petrolle birlikte nefesimizi de sattık.",person:"Khalid Al-Saud",role:"Enerji Dönüşüm Danışmanı, 46 Yaş"},
+  {id:35,name:"Tel Aviv",country:"İsrail",region:"asia",aqi:118,water:96,health:"Hafif",mode:"Fiziksel",social:8,lat:32.1,lon:34.8,
+   story:"<p>Tel Aviv, çölü yeşile dönüştürme konusundaki onlarca yıllık deneyimini atmosferik yönetim teknolojilerine başarıyla aktarmıştır.</p>",
+   quote:"Çöl içinde bir şehirde yaşıyorum ve derin nefes alabiliyorum. Bu teknolojinin değil, iradenin sonucu.",person:"Tamar Cohen",role:"Tatlı Su Mühendisi, 41 Yaş"},
+  {id:36,name:"Tahran",country:"İran",region:"asia",aqi:376,water:31,health:"Şiddetli Kronik",mode:"Sanal",social:2,lat:35.7,lon:51.4,
+   story:"<p>Tahran, dağlarla çevrili coğrafyası nedeniyle kirli havanın kolayca dağılamadığı yapısını 2566'da da sürdürmektedir. Şehir havzası adeta bir 'kirlilik kapanı' işlevi görmektedir.</p>",
+   quote:"Dağlara bakıyorum ve eski fotoğraflarda karlı olan zirveleri görüyorum. Artık karsız. Artık dumanlı.",person:"Leila Nazari",role:"Eski Kayak Antrenörü, 62 Yaş"},
+  {id:37,name:"Mumbai",country:"Hindistan",region:"asia",aqi:412,water:25,health:"Şiddetli Kronik",mode:"Sanal",social:2,lat:19.1,lon:72.9,
+   story:"<p>Mumbai, yükselen okyanus seviyeleri ve endüstriyel kirlilik sarmalında boğulmaktadır. Şehrin kıyı bölgeleri kısmen su altında kalmış, nüfus iç kesimlere yığılmıştır.</p>",
+   quote:"Bollywood filmleri hâlâ çekiliyor, ama seti dışarıya kurmanın imkânı yok. Hayaller bile kirli havada soluk alıyor.",person:"Priya Mehta",role:"Film Yönetmeni, 39 Yaş"},
+  {id:38,name:"Dakka",country:"Bangladeş",region:"asia",aqi:467,water:11,health:"Kritik",mode:"Sanal",social:1,lat:23.8,lon:90.4,
+   story:"<p>Dakka, 2566'nın en büyük atmosferik felaketinin yaşandığı şehridir. Delta bölgesinin sular altında kalmasıyla birlikte nüfus aşırı yoğunlaşmış küçük alanlara sıkışmış; hava ve su kalitesi kritik sınırların çok altındadır.</p>",
+   quote:"Ülkemiz sular altında. Havasında nefes alınamıyor. Biz nereye gideceğiz? Dünya cevap versin.",person:"Rahim Khan",role:"İklim Mültecisi, Dakka Kuzey Kampı, 25 Yaş"},
+  {id:39,name:"Kinshasa",country:"Kongo",region:"africa",aqi:223,water:34,health:"Orta Kronik",mode:"Hibrit",social:3,lat:-4.3,lon:15.3,
+   story:"<p>Kinshasa, Kongo Havzası'nın kısmen ayakta kalan ormanlarından aldığı oksijen desteğiyle bölgenin nispeten daha iyi durumda şehirlerinden biridir.</p>",
+   quote:"Ormanlar hâlâ var. O ormanlar yaşadığı sürece biz de yaşarız. Onları korumak için her şeyi yaparım.",person:"Jean-Pierre Kabila",role:"Orman Koruyucusu, 44 Yaş"},
+  {id:40,name:"Bogota",country:"Kolombiya",region:"americas",aqi:128,water:78,health:"Hafif Kronik",mode:"Fiziksel",social:7,lat:4.7,lon:-74.1,
+   story:"<p>Bogota, And Dağları'nın temiz havasıyla desteklenen konumunu 2566'da başarıyla korumaktadır. Andes ekosistemi şehre düzenli temiz hava akışı sağlamaktadır.</p>",
+   quote:"And'ların havası bize armağan. Ama bu armağanı emanet gibi saklamak gerekiyor.",person:"Camila Torres",role:"Dağ Ekolojisti, 36 Yaş"},
+  {id:41,name:"Lima",country:"Peru",region:"americas",aqi:198,water:48,health:"Orta Kronik",mode:"Hibrit",social:5,lat:-12.0,lon:-77.0,
+   story:"<p>Lima, Pasifik kıyısındaki konumu sayesinde deniz breziyle kısmen nefes alabilmektedir. Ancak And'ların eriyen buzullarının yarattığı su krizi şehrin diğer hayatta kalma sorunlarını doğurmaktadır.</p>",
+   quote:"Buzullar eridikçe su azaldı. Su azaldıkça bitki örtüsü azaldı. Bitki örtüsü azaldıkça hava kötüleşti. Hepsi birbirine bağlı.",person:"Rosa Mamani",role:"Hidroloji Bilimcisi, 47 Yaş"},
+  {id:42,name:"Cakarta",country:"Endonezya",region:"asia",aqi:398,water:19,health:"Şiddetli Kronik",mode:"Sanal",social:1,lat:-6.2,lon:106.8,
+   story:"<p>Cakarta'nın büyük bölümü artık deniz altındadır. Şehrin geri kalan yüksek alanlarında yaşayan 8 milyon kişi hem su kıtlığı hem de hava kirliğiyle yaşam mücadelesi vermektedir.</p>",
+   quote:"Evim suyun altında kaldı. Şimdi başka bir evim var ama hava da solunamıyor. Kaybetmek bitmiyor.",person:"Budi Santoso",role:"Yerinden Edilmiş Balıkçı, 55 Yaş"},
+  {id:43,name:"Manila",country:"Filipinler",region:"asia",aqi:337,water:33,health:"Ağır Kronik",mode:"Sanal",social:2,lat:14.6,lon:121.0,
+   story:"<p>Manila, süper tayfunların ve deniz seviyesinin yükselmesinin yaşattığı çifte kriz içinde hava kirliğiyle de baş başadır.</p>",
+   quote:"Her yıl bir tayfun, her yıl biraz daha aşağı. Hem evsiz hem havasız. Nereden başlayacağımızı bilmiyoruz.",person:"Maria Santos",role:"Sivil Toplum Örgütü Koordinatörü, 38 Yaş"},
+  {id:44,name:"Melbourne",country:"Avustralya",region:"oceania",aqi:72,water:88,health:"Hafif",mode:"Fiziksel",social:8,lat:-37.8,lon:144.9,
+   story:"<p>Melbourne, güney rüzgarlarının getirdiği temiz hava akışıyla desteklenmekte ve avantajlı konumunu korumaktadır.</p>",
+   quote:"Güney rüzgarı her sabah temiz bir sayfa açıyor. Bu şehri seven herkes bilir: güney rüzgarı hayattır.",person:"Sarah O'Brien",role:"Meteoroloji Uzmanı, 44 Yaş"},
+  {id:45,name:"Santiago",country:"Şili",region:"americas",aqi:163,water:44,health:"Orta",mode:"Hibrit",social:6,lat:-33.5,lon:-70.6,
+   story:"<p>Santiago, And Dağları'nın doğal hava trafiğini engellemesi nedeniyle kronik kirlilik sorunuyla boğuşmaktadır. Kış inversiyonları şehri kirlilik kapanına hapsetmektedir.</p>",
+   quote:"Cordillera'ya kar yağmadığında biliyoruz: bu yaz daha az su, daha kirli hava demek.",person:"Pablo Reyes",role:"İklim Araştırmacısı, 50 Yaş"},
+  {id:46,name:"Accra",country:"Gana",region:"africa",aqi:178,water:52,health:"Orta",mode:"Hibrit",social:5,lat:5.6,lon:-0.2,
+   story:"<p>Accra, Batı Afrika'nın nispeten ayakta kalan şehirlerinden biri olarak Atlantik'ten gelen rüzgarların korumasını hâlâ hissetmektedir.</p>",
+   quote:"Gana'nın en büyük ihracatı artık temiz hava değil. Ama en büyük isteği o.",person:"Kwame Asante",role:"Çevre Gazetecisi, 37 Yaş"},
+  {id:47,name:"Lizbon",country:"Portekiz",region:"europe",aqi:44,water:93,health:"İyi",mode:"Fiziksel",social:9,lat:38.7,lon:-9.1,
+   story:"<p>Lizbon, Atlantik ikliminin koruması ve erken dönem karbon tarafsızlığı politikaları sayesinde 2566'nın en yaşanabilir şehirleri arasına girmiştir. 'Hava turizmi' için gelen ziyaretçiler önemli bir geçim kaynağı olmuştur.</p>",
+   quote:"Artık turizm sebebi değişti. İnsanlar güneşe değil, temiz havaya geliyor. Ve bizde var.",person:"Ana Ferreira",role:"Hava Turizmi Rehberi, 29 Yaş"},
+  {id:48,name:"Helsinki",country:"Finlandiya",region:"europe",aqi:18,water:100,health:"Mükemmel",mode:"Fiziksel",social:10,lat:60.2,lon:24.9,
+   story:"<p>Helsinki, 2566'nın dünya genelinde en temiz hava değerini kaydeden büyük şehri olma unvanını taşımaktadır. Kuzey ormanları ve Baltık Denizi'nin temiz hava kütleleri şehri bir 'doğa kalesi' içine almıştır.</p><p>Finlandiya'nın yüzyıllar öncesinden gelen sürdürülebilir orman yönetimi bugün meyvelerini vermektedir.</p>",
+   quote:"Sauna sonrası dışarı çıkıp derin bir nefes alıyorum. Her gün. Bu basit eylem için başka ülkelerden insanlar mektup gönderiyor. Bu bizi hem gururlandırıyor hem üzüyor.",person:"Erika Makinen",role:"Doğa Terapisti, 40 Yaş"},
+  {id:49,name:"Addis Ababa",country:"Etiyopya",region:"africa",aqi:167,water:61,health:"Orta",mode:"Hibrit",social:5,lat:9.0,lon:38.7,
+   story:"<p>Addis Ababa, yüksek rakımı ve yenilenen enerji altyapısı sayesinde nispeten temiz hava kalitesini koruyan Afrika şehirleri arasındadır.</p>",
+   quote:"Afrika'nın kalbi hâlâ atıyor. Hava kirli olabilir ama umut temiz.",person:"Tigist Bekele",role:"Kamu Sağlığı Görevlisi, 34 Yaş"}
+];
+
+const TL=[
+  {y:"2026",ev:"İklim Zirvesi'nde emisyon hedefleri tutturulamıyor. Global AQI ortalaması 95.",aqi:95,c:"#DFFF00"},
+  {y:"2080",ev:"Amazon'un %40'ı kalıcı olarak çölleşiyor. İlk 'hava mültecisi' kategorisi tanımlanıyor.",aqi:158,c:"#FF8C00"},
+  {y:"2150",ev:"BM 'Solunum Hakları Sözleşmesi'ni yayımlıyor. Kabul oranı: %12.",aqi:213,c:"#FF4400"},
+  {y:"2250",ev:"İlk tam kapalı şehir kupolleri inşa ediliyor. Dubai ve Singapur öncü.",aqi:298,c:"#FF2200"},
+  {y:"2380",ev:"Kuzey Kutbu buz katmanı tamamen eriyor. Küresel su döngüsü çöküyor.",aqi:341,c:"#CC0000"},
+  {y:"2450",ev:"Avrupa 'Nefes Birliği' kuruluyor. Ortak hava standardı hayata giriyor.",aqi:287,c:"#FF4A00"},
+  {y:"2566",ev:"Bugün. 49 şehirde AQI ölçümü. Sadece 8 şehirde 'mükemmel' hava kalitesi var.",aqi:231,c:"#FF4A00"}
+];
+
+function aqiColor(v){
+  if(v<=50)return{bg:"#00b050",tx:"#fff",lbl:"Mükemmel"};
+  if(v<=100)return{bg:"#92d050",tx:"#000",lbl:"İyi"};
+  if(v<=150)return{bg:"#DFFF00",tx:"#000",lbl:"Orta"};
+  if(v<=200)return{bg:"#FF8C00",tx:"#fff",lbl:"Sağlıksız (Hassas)"};
+  if(v<=300)return{bg:"#FF4A00",tx:"#fff",lbl:"Sağlıksız"};
+  if(v<=400)return{bg:"#CC0022",tx:"#fff",lbl:"Çok Sağlıksız"};
+  return{bg:"#7B0099",tx:"#fff",lbl:"Tehlikeli"};
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  // LOADER
+  const ldBar=document.getElementById('ldBar'),loader=document.getElementById('loader');
+  setTimeout(()=>ldBar.style.width='100%',80);
+  setTimeout(()=>loader.classList.add('gone'),2700);
+
+  // CURSOR
+  const cur=document.getElementById('cursor');
+  document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+  document.querySelectorAll('button,a,.ccard,.mdot,.tl-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+    el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+  });
+
+  // STATS
+  const total=C.reduce((s,c)=>s+c.aqi,0);
+  document.getElementById('gAqi').textContent=Math.round(total/C.length);
+  document.getElementById('gClean').textContent=C.filter(c=>c.aqi<=100).length;
+  document.getElementById('gDanger').textContent=C.filter(c=>c.aqi>200).length;
+  document.getElementById('gCount').textContent=C.length;
+
+  // TICKER
+  const td=C.map(c=>c.name+' ('+c.country+') — AQI: '+c.aqi).join(' ◆ ');
+  document.getElementById('tickerIn').textContent=td+' ◆ '+td;
+
+  // RENDER CITIES
+  renderCities(C);
+
+  // MAP
+  buildMap();
+
+  // TIMELINE
+  buildTimeline();
+
+  // FILTERS
+  document.querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on','on-safe','on-danger'));
+    b.classList.add('on');
+    applyFilters();
+  }));
+
+  // SEARCH
+  document.getElementById('searchIn').addEventListener('input',applyFilters);
+
+  // MODAL
+  document.getElementById('mClose').addEventListener('click',closeModal);
+  document.getElementById('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')closeModal();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+  // PARTICLES
+  initParticles();
+
+  // REVEAL
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+});
+
+function renderCities(list){
+  const grid=document.getElementById('cityGrid');
+  grid.innerHTML='';
+  list.forEach((city,i)=>{
+    const ac=aqiColor(city.aqi),bw=Math.min(100,(city.aqi/500)*100);
+    const card=document.createElement('div');
+    card.className='ccard reveal';
+    card.style.cssText='--cc:'+ac.bg+';--ct:'+ac.tx;
+    card.innerHTML=
+      '<div class="c-top">'
+      +'<div><div class="c-name">'+city.name+'</div><div class="c-country">'+city.country+'</div></div>'
+      +'<div class="aqi-badge" style="background:'+ac.bg+';color:'+ac.tx+'">'+city.aqi+'</div>'
+      +'</div>'
+      +'<div class="c-meta">Su: %'+city.water+' &nbsp;|&nbsp; '+city.mode+' &nbsp;|&nbsp; Sosyal: '+city.social+'/10</div>'
+      +'<div class="aqi-bar"><div class="aqi-inner" style="width:'+bw+'%"></div></div>'
+      +'<div class="c-preview">'+city.story.replace(/<[^>]+>/g,'').substring(0,135)+'...</div>'
+      +'<div class="c-tags"><span class="ctag">'+ac.lbl+'</span><span class="ctag">'+city.health+'</span><span class="ctag">'+city.region+'</span></div>';
+    card.addEventListener('click',()=>openModal(city));
+    grid.appendChild(card);
+    setTimeout(()=>card.classList.add('vis'),i*30);
+  });
+  document.getElementById('visCount').textContent=list.length+' / '+C.length+' Şehir';
+}
+
+function applyFilters(){
+  const f=document.querySelector('.fbtn.on')?.dataset.f||'all';
+  const s=document.getElementById('searchIn').value.toLowerCase();
+  const res=C.filter(c=>{
+    const mf=f==='all'?true:f==='clean'?c.aqi<=100:f==='moderate'?c.aqi>100&&c.aqi<=200:f==='danger'?c.aqi>200:c.region===f;
+    const ms=!s||c.name.toLowerCase().includes(s)||c.country.toLowerCase().includes(s);
+    return mf&&ms;
+  });
+  renderCities(res);
+}
+
+function openModal(city){
+  const ac=aqiColor(city.aqi);
+  document.getElementById('mCity').textContent=city.name;
+  document.getElementById('mCountry').textContent=city.country+' — '+city.region.toUpperCase();
+  const pct=Math.min(97,(city.aqi/500)*100);
+  document.getElementById('aqiNeedle').style.left=pct+'%';
+  document.getElementById('aqiNum').textContent=city.aqi;
+  document.getElementById('aqiNum').style.color=ac.bg;
+  document.getElementById('aqiStatus').textContent=ac.lbl;
+  const stats=[
+    {l:'Su Erişimi',v:'%'+city.water,s:city.water>70?'Yeterli':city.water>40?'Kısıtlı':'Kritik'},
+    {l:'Solunum Sağlığı',v:city.health,s:''},
+    {l:'Yaşam Biçimi',v:city.mode,s:''},
+    {l:'Sosyal Etki',v:city.social+'/10',s:city.social>=7?'Yüksek':city.social>=4?'Orta':'Düşük'}
+  ];
+  document.getElementById('mStats').innerHTML=stats.map(s=>'<div class="m-stat"><div class="m-stat-lbl">'+s.l+'</div><div class="m-stat-val">'+s.v+'</div>'+(s.s?'<div class="m-stat-sub">'+s.s+'</div>':'')+'</div>').join('');
+  document.getElementById('mStory').innerHTML=city.story;
+  document.getElementById('hQuote').textContent=city.quote;
+  document.getElementById('hName').textContent=city.person;
+  document.getElementById('hRole').textContent=city.role;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function buildMap(){
+  const layer=document.getElementById('dotLayer');
+  C.forEach(city=>{
+    const x=((city.lon+180)/360)*100;
+    const y=((90-city.lat)/180)*100;
+    const ac=aqiColor(city.aqi);
+    const d=document.createElement('div');
+    d.className='mdot';
+    d.style.cssText='left:'+x+'%;top:'+y+'%;--dc:'+ac.bg;
+    d.innerHTML='<div class="dpulse"></div><div class="dtooltip">'+city.name+'<br>AQI: '+city.aqi+'</div>';
+    d.addEventListener('click',()=>openModal(city));
+    layer.appendChild(d);
+  });
+}
+
+function buildTimeline(){
+  const wrap=document.getElementById('tl');
+  TL.forEach((item,i)=>{
+    const el=document.createElement('div');
+    el.className='tl-item';
+    el.innerHTML='<div class="tl-dot" style="left:'+((i/(TL.length-1))*100)+'%;background:'+item.c+';border-color:'+item.c+'"></div>'
+      +'<div class="tl-year">'+item.y+'</div>'
+      +'<div class="tl-aqi" style="color:'+item.c+'">'+item.aqi+'</div>'
+      +'<div class="tl-ev">'+item.ev+'</div>';
+    wrap.appendChild(el);
+  });
+}
+
+function initParticles(){
+  const cv=document.getElementById('pCanvas'),ctx=cv.getContext('2d');
+  let W,H,pts=[];
+  function rs(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  rs();window.addEventListener('resize',rs);
+  for(let i=0;i<70;i++)pts.push({x:Math.random()*(W||400),y:Math.random()*(H||400),r:Math.random()*2+.4,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,op:Math.random()*.5+.1,col:Math.random()>.5?'#FF4A00':'#DFFF00'});
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.col;ctx.globalAlpha=p.op;ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+    });
+    ctx.globalAlpha=1;requestAnimationFrame(draw);
+  }
+  draw();
+}
+</script>
+</body>
+</html>

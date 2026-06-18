@@ -3,7 +3,7 @@ import { getAtolyeler, saveAtolyeler, parseFirmId } from "@/lib/github";
 import { NextResponse } from "next/server";
 
 const FIRM_FIELDS = [
-  "businessName", "ownerName", "category", "logo", "phone", "website",
+  "businessName", "ownerName", "contactPerson", "category", "logo", "phone", "website",
   "instagram", "whatsapp", "description", "taxNumber", "address", "workingHours",
 ];
 

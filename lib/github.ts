@@ -70,6 +70,7 @@ export type Firm = {
   subId: number;
   businessName: string | null;
   ownerName: string | null;
+  contactPerson: string | null;
   category: string | null;
   logo: string | null;
   phone: string | null;
