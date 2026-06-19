@@ -217,7 +217,6 @@ function AtolyeEditModal({
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ backgroundColor: "rgba(17,17,17,0.7)" }}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <div className="bg-[#F4F3F0] border border-[#111111] w-full max-w-2xl flex flex-col max-h-[90vh]">
 
