@@ -99,7 +99,7 @@ export default function Gallery() {
               src={lightbox}
               alt="Galeri"
               fill
-              sizes="100vw"
+              sizes="(max-width: 768px) 95vw, 768px"
               className="object-contain"
             />
           </div>
