@@ -1,3 +1,10 @@
 {
-  "subscribers": []
+  "subscribers": [
+    {
+      "id": "sub-1781859239152",
+      "name": "okan kaya",
+      "email": "kayaokn@gmail.com",
+      "subscribedAt": "2026-06-19T08:53:59.152Z"
+    }
+  ]
 }
