@@ -41,7 +41,6 @@ export default function HaberdarOlModal({ onClose }: { onClose: () => void }) {
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"
       style={{ backgroundColor: "rgba(17,17,17,0.75)" }}
-      onClick={onClose}
     >
       <div
         className="bg-[#F4F3F0] border border-[#111111] w-full max-w-md flex flex-col"

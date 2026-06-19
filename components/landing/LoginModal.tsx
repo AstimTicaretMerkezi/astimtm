@@ -44,7 +44,6 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
   return (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center"
-      onClick={onClose}
     >
       {/* Backdrop */}
       <div className="absolute inset-0 bg-[#111111]/70" />

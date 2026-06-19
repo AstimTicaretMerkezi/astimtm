@@ -92,7 +92,6 @@ export default function Gallery() {
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4"
           style={{ backgroundColor: "rgba(17,17,17,0.92)" }}
-          onClick={() => setLightbox(null)}
         >
           <div className="relative w-full max-w-3xl max-h-[85vh] aspect-[1.6]">
             <Image
