@@ -496,11 +496,11 @@ export default function AtolyelerClient({
           { label: "TOPLAM FİRMA", value: totalFirms },
           { label: "AKTİF FİRMA", value: totalAktif, accent: "#DFFF00" },
         ].map((stat, i) => (
-          <div key={stat.label} className={`p-6 flex flex-col gap-1 ${i < 2 ? "border-r border-[#111111]" : ""}`}>
-            <span className="text-[10px] font-[700] tracking-[0.15em] uppercase text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>
+          <div key={stat.label} className={`p-3 md:p-6 flex flex-col gap-1 ${i < 2 ? "border-r border-[#111111]" : ""}`}>
+            <span className="text-[9px] md:text-[10px] font-[700] tracking-[0.1em] md:tracking-[0.15em] uppercase text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>
               {stat.label}
             </span>
-            <span className="text-[48px] font-[900] tracking-[-0.04em] leading-none" style={{ fontFamily: "var(--font-hanken)", color: stat.accent ?? "#111111" }}>
+            <span className="text-[32px] md:text-[48px] font-[900] tracking-[-0.04em] leading-none" style={{ fontFamily: "var(--font-hanken)", color: stat.accent ?? "#111111" }}>
               {stat.value}
             </span>
           </div>
@@ -526,16 +526,16 @@ export default function AtolyelerClient({
               <div key={shop.id} className={si < block.shops.length - 1 ? "border-b border-[#111111]" : ""}>
 
                 {/* Shop header row */}
-                <div className={`px-6 py-3 flex items-center justify-between ${isEmpty ? "bg-[#F4F3F0]" : "bg-[#EFEEEB]"}`}>
-                  <div className="flex items-center gap-3">
+                <div className={`px-4 md:px-6 py-3 flex items-center justify-between gap-2 ${isEmpty ? "bg-[#F4F3F0]" : "bg-[#EFEEEB]"}`}>
+                  <div className="flex items-center gap-2 md:gap-3 min-w-0">
                     <span
-                      className={`text-[10px] font-[700] tracking-[0.1em] uppercase px-2 py-1 border ${isEmpty ? "border-[#c4c7c7] text-[#c4c7c7]" : "border-[#FF4A00] text-[#FF4A00]"}`}
+                      className={`flex-shrink-0 text-[10px] font-[700] tracking-[0.1em] uppercase px-2 py-1 border ${isEmpty ? "border-[#c4c7c7] text-[#c4c7c7]" : "border-[#FF4A00] text-[#FF4A00]"}`}
                       style={{ fontFamily: "var(--font-space-mono)" }}
                     >
                       {shop.id}
                     </span>
                     {isEmpty ? (
-                      <span className="text-[12px] text-[#c4c7c7]" style={{ fontFamily: "var(--font-inter)" }}>— Boş atölye —</span>
+                      <span className="text-[11px] text-[#c4c7c7] truncate" style={{ fontFamily: "var(--font-inter)" }}>— Boş atölye —</span>
                     ) : (
                       <span className="text-[11px] text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>
                         {shopFirms.length} FİRMA
@@ -546,7 +546,7 @@ export default function AtolyelerClient({
                     type="button"
                     onClick={() => handleAddFirm(shop.id)}
                     disabled={addingShopId === shop.id}
-                    className="text-[10px] font-[700] tracking-[0.1em] uppercase text-[#111111] border border-[#111111] px-3 py-1.5 hover:bg-[#111111] hover:text-[#F4F3F0] transition-none disabled:opacity-40"
+                    className="flex-shrink-0 text-[9px] md:text-[10px] font-[700] tracking-[0.08em] uppercase text-[#111111] border border-[#111111] px-2 md:px-3 py-1.5 hover:bg-[#111111] hover:text-[#F4F3F0] transition-none disabled:opacity-40"
                     style={{ fontFamily: "var(--font-space-mono)" }}
                   >
                     {addingShopId === shop.id ? "EKLENİYOR..." : "+ FİRMA EKLE"}
@@ -557,58 +557,57 @@ export default function AtolyelerClient({
                 {shopFirms.map((firm, fi) => {
                   const firmId = `${shop.id}.${firm.subId}`;
                   return (
-                    <div
-                      key={firm.subId}
-                      className={`px-6 py-4 grid grid-cols-12 gap-4 items-center border-t border-[#111111] bg-[#F4F3F0] ${fi < shopFirms.length - 1 ? "" : ""}`}
-                    >
-                      {/* FirmId */}
-                      <div className="col-span-2">
-                        <span className={`text-[10px] font-[700] tracking-[0.1em] uppercase px-2 py-1 border ${firm.isActive ? "border-[#FF4A00] text-[#FF4A00]" : "border-[#c4c7c7] text-[#c4c7c7]"}`} style={{ fontFamily: "var(--font-space-mono)" }}>
-                          {firmId}
-                        </span>
+                    <div key={firm.subId} className="border-t border-[#111111] bg-[#F4F3F0]">
+
+                      {/* Mobile card */}
+                      <div className="md:hidden px-4 py-3 flex flex-col gap-2">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className={`text-[10px] font-[700] tracking-[0.1em] uppercase px-2 py-1 border ${firm.isActive ? "border-[#FF4A00] text-[#FF4A00]" : "border-[#c4c7c7] text-[#c4c7c7]"}`} style={{ fontFamily: "var(--font-space-mono)" }}>
+                              {firmId}
+                            </span>
+                            <span className={`text-[9px] font-[700] tracking-[0.1em] uppercase px-2 py-1 ${firm.isActive ? "bg-[#DFFF00] text-[#111111]" : "border border-[#c4c7c7] text-[#c4c7c7]"}`} style={{ fontFamily: "var(--font-space-mono)" }}>
+                              {firm.isActive ? "AKTİF" : "PASİF"}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-3 flex-shrink-0">
+                            <button type="button" onClick={() => setSelectedFirmId(firmId)} className="text-[10px] font-[700] tracking-[0.1em] uppercase text-[#111111] hover:text-[#FF4A00] transition-none" style={{ fontFamily: "var(--font-space-mono)" }}>DÜZENLE</button>
+                            <button type="button" onClick={() => handleDeleteFirm(firmId)} className="text-[10px] font-[700] tracking-[0.1em] uppercase text-[#c4c7c7] hover:text-[#FF4A00] transition-none" style={{ fontFamily: "var(--font-space-mono)" }}>SİL</button>
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-0.5">
+                          <span className="text-[14px] font-[700] text-[#111111]" style={{ fontFamily: "var(--font-inter)" }}>
+                            {firm.businessName ?? <span className="text-[#c4c7c7] font-[400]">— Boş —</span>}
+                          </span>
+                          {firm.category && (
+                            <span className="text-[11px] text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>{firm.category}</span>
+                          )}
+                        </div>
                       </div>
 
-                      {/* Business name */}
-                      <span className="col-span-3 text-[14px] font-[700] text-[#111111] truncate" style={{ fontFamily: "var(--font-inter)" }}>
-                        {firm.businessName ?? <span className="text-[#c4c7c7] font-[400]">— Boş —</span>}
-                      </span>
-
-                      {/* Category */}
-                      <span className="col-span-2 text-[12px] text-[#747878] truncate" style={{ fontFamily: "var(--font-space-mono)" }}>
-                        {firm.category ?? "—"}
-                      </span>
-
-                      {/* Owner */}
-                      <span className="col-span-2 text-[12px] text-[#747878] truncate" style={{ fontFamily: "var(--font-inter)" }}>
-                        {firm.ownerName ?? "—"}
-                      </span>
-
-                      {/* Status */}
-                      <span className="col-span-1">
-                        <span className={`text-[9px] font-[700] tracking-[0.1em] uppercase px-2 py-1 ${firm.isActive ? "bg-[#DFFF00] text-[#111111]" : "border border-[#c4c7c7] text-[#c4c7c7]"}`} style={{ fontFamily: "var(--font-space-mono)" }}>
-                          {firm.isActive ? "AKTİF" : "PASİF"}
+                      {/* Desktop row */}
+                      <div className="hidden md:grid px-6 py-4 grid-cols-12 gap-4 items-center">
+                        <div className="col-span-2">
+                          <span className={`text-[10px] font-[700] tracking-[0.1em] uppercase px-2 py-1 border ${firm.isActive ? "border-[#FF4A00] text-[#FF4A00]" : "border-[#c4c7c7] text-[#c4c7c7]"}`} style={{ fontFamily: "var(--font-space-mono)" }}>
+                            {firmId}
+                          </span>
+                        </div>
+                        <span className="col-span-3 text-[14px] font-[700] text-[#111111] truncate" style={{ fontFamily: "var(--font-inter)" }}>
+                          {firm.businessName ?? <span className="text-[#c4c7c7] font-[400]">— Boş —</span>}
                         </span>
-                      </span>
-
-                      {/* Actions */}
-                      <div className="col-span-2 flex justify-end gap-3">
-                        <button
-                          type="button"
-                          onClick={() => setSelectedFirmId(firmId)}
-                          className="text-[11px] font-[700] tracking-[0.1em] uppercase text-[#111111] hover:text-[#FF4A00] transition-none"
-                          style={{ fontFamily: "var(--font-space-mono)" }}
-                        >
-                          DÜZENLE
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteFirm(firmId)}
-                          className="text-[11px] font-[700] tracking-[0.1em] uppercase text-[#c4c7c7] hover:text-[#FF4A00] transition-none"
-                          style={{ fontFamily: "var(--font-space-mono)" }}
-                        >
-                          SİL
-                        </button>
+                        <span className="col-span-2 text-[12px] text-[#747878] truncate" style={{ fontFamily: "var(--font-space-mono)" }}>{firm.category ?? "—"}</span>
+                        <span className="col-span-2 text-[12px] text-[#747878] truncate" style={{ fontFamily: "var(--font-inter)" }}>{firm.ownerName ?? "—"}</span>
+                        <span className="col-span-1">
+                          <span className={`text-[9px] font-[700] tracking-[0.1em] uppercase px-2 py-1 ${firm.isActive ? "bg-[#DFFF00] text-[#111111]" : "border border-[#c4c7c7] text-[#c4c7c7]"}`} style={{ fontFamily: "var(--font-space-mono)" }}>
+                            {firm.isActive ? "AKTİF" : "PASİF"}
+                          </span>
+                        </span>
+                        <div className="col-span-2 flex justify-end gap-3">
+                          <button type="button" onClick={() => setSelectedFirmId(firmId)} className="text-[11px] font-[700] tracking-[0.1em] uppercase text-[#111111] hover:text-[#FF4A00] transition-none" style={{ fontFamily: "var(--font-space-mono)" }}>DÜZENLE</button>
+                          <button type="button" onClick={() => handleDeleteFirm(firmId)} className="text-[11px] font-[700] tracking-[0.1em] uppercase text-[#c4c7c7] hover:text-[#FF4A00] transition-none" style={{ fontFamily: "var(--font-space-mono)" }}>SİL</button>
+                        </div>
                       </div>
+
                     </div>
                   );
                 })}
