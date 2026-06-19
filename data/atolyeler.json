@@ -322,15 +322,26 @@
         {
           "id": "C-06",
           "no": 6,
-          "businessName": null,
-          "ownerName": null,
-          "category": null,
-          "logo": null,
-          "phone": null,
-          "website": null,
-          "instagram": null,
-          "description": null,
-          "isActive": false
+          "firms": [
+            {
+              "subId": 1,
+              "businessName": "Süleyman Yılmaz Studio",
+              "ownerName": "Süleyman Yılmaz",
+              "contactPerson": "Süleyman Yılmaz Studio",
+              "category": "Kişisel Atölye",
+              "logo": null,
+              "phone": "508466076",
+              "website": "httep://www.awesomebros.com",
+              "instagram": "skipintrobaby",
+              "whatsapp": "5078466076",
+              "description": "Awesome Bros, Londra ve istanbul Stüdyolarının sahibi ve yürütücüsü olan Süleyman Yılmaz, İstanbulda yaşamaktadır.\nStüdio, kamusal alanda mimari ölçekli digital yerleştirmeler ve veri ile hikaye anlatımları üzerine sanat ve deneyim projeleri üretmektedir.\n\nDigital yetkinliğinin tüm olanaklar ile, izleyicisine mimari ve iç mimarinin digital ile birleşiminden oluşan yeni gerçeklikleri sunan Süleyman Yılmaz, mekan, ışık ve sesi kullanarak sarmalayan deneyimler, gerçek zamanlı performanslar ve alana özel yerleştirmeler gibi çeşitli formlarda sanat ve tasarımlar üretmektedir.\n\nSon yıllarda, doğa ve iklim krizi üzerine ürettiği eserler iklim verilerini sanat ile tercüme etmeye çalışan sanatçı, COP27 Vve COP29 İklim Zirvesinde ve United Nations New York merkez binasında iklim üzerine eserlerini solo sergi olarak sergileme fırsatı bulmuştur.\n\nSüleyman Yilmaz yerel ve global ölçekli projeleri ile , German Design Awards, Maxim Awards, Steve Awards, Kristal Elma Büyük Ödül gibi birçok ödüle layık görülmüş ve Galata Kulesi, Royal Albert Hall, Yere Batan Sarnaci, Atatürk Kültür Merkezi, Kiz Kulesi, Kapadokya peri bacaları gibi birçok ikonik yapı üzerinde projeleri sergilenmistir.",
+              "taxNumber": null,
+              "address": null,
+              "workingHours": "Pzt: 09:00-18:00, Sal: 09:00-18:00, Çar: 09:00-18:00, Per: 09:00-18:00, Cum: 09:00-18:00, Cmt: Kapalı, Paz: Kapalı",
+              "brands": [],
+              "isActive": true
+            }
+          ]
         },
         {
           "id": "C-07",
