@@ -162,7 +162,26 @@
         {
           "id": "B-06",
           "no": 6,
-          "firms": []
+          "firms": [
+            {
+              "subId": 1,
+              "businessName": "Gurcoat Çanakkale",
+              "ownerName": "Kerem Meriç",
+              "contactPerson": "Kerem Meriç",
+              "category": "Otomotiv",
+              "logo": "https://res.cloudinary.com/days4cluv/image/upload/v1781860840/astimtm/logos/atolye-B-08.png",
+              "phone": "05497849893",
+              "website": null,
+              "instagram": "@gurcoat.canakkale",
+              "whatsapp": "05497849893",
+              "description": null,
+              "taxNumber": null,
+              "address": "B Blok No 6",
+              "workingHours": "Pzt: 09:00-18:00, Sal: 09:00-18:00, Çar: 09:00-18:00, Per: 09:00-18:00, Cum: 09:00-18:00, Cmt: Kapalı, Paz: Kapalı",
+              "brands": [],
+              "isActive": true
+            }
+          ]
         },
         {
           "id": "B-07",
