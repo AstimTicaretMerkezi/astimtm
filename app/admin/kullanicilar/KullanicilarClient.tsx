@@ -223,9 +223,10 @@ export default function KullanicilarClient({ users, firmIds }: { users: User[]; 
         </button>
       </div>
 
-      {/* Table */}
+      {/* Table — desktop */}
       <div className="border border-[#111111]">
-        <div className="border-b border-[#111111] px-6 py-3 grid grid-cols-12 gap-4 bg-[#111111] text-[#F4F3F0]">
+        {/* Header — hidden on mobile */}
+        <div className="hidden md:grid border-b border-[#111111] px-6 py-3 grid-cols-12 gap-4 bg-[#111111] text-[#F4F3F0]">
           {["AD SOYAD", "E-POSTA", "ROL", "ATÖLYE", "İŞLEMLER"].map((h, i) => (
             <span
               key={h}
@@ -246,44 +247,86 @@ export default function KullanicilarClient({ users, firmIds }: { users: User[]; 
         )}
 
         {users.map((user, i) => (
-          <div
-            key={user.id}
-            className={`px-6 py-4 grid grid-cols-12 gap-4 items-center ${i < users.length - 1 ? "border-b border-[#111111]" : ""}`}
-          >
-            <span className="col-span-3 text-[14px] font-[700] text-[#111111] truncate" style={{ fontFamily: "var(--font-inter)" }}>
-              {user.name}
-            </span>
-            <span className="col-span-3 text-[12px] text-[#747878] truncate" style={{ fontFamily: "var(--font-space-mono)" }}>
-              {user.email}
-            </span>
-            <span className="col-span-2">
-              <span
-                className={`text-[10px] font-[700] tracking-[0.1em] uppercase px-2 py-1 ${user.role === "admin" ? "bg-[#FF4A00] text-[#F4F3F0]" : "border border-[#111111]"}`}
-                style={{ fontFamily: "var(--font-space-mono)" }}
-              >
-                {user.role}
-              </span>
-            </span>
-            <span className="col-span-2">
-              {user.atolyeId ? (
-                <span className="text-[10px] font-[700] tracking-[0.1em] uppercase bg-[#DFFF00] px-2 py-1" style={{ fontFamily: "var(--font-space-mono)" }}>
-                  {user.atolyeId}
+          <div key={user.id} className={i < users.length - 1 ? "border-b border-[#111111]" : ""}>
+
+            {/* Mobile card */}
+            <div className="md:hidden px-5 py-4 flex flex-col gap-3">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex flex-col gap-1 min-w-0">
+                  <span className="text-[15px] font-[700] text-[#111111] truncate" style={{ fontFamily: "var(--font-inter)" }}>
+                    {user.name}
+                  </span>
+                  <span className="text-[11px] text-[#747878] truncate" style={{ fontFamily: "var(--font-space-mono)" }}>
+                    {user.email}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setEditUser(user)}
+                    className="text-[10px] font-[700] tracking-[0.1em] uppercase border border-[#111111] px-3 py-1.5 hover:bg-[#111111] hover:text-[#F4F3F0] transition-none"
+                    style={{ fontFamily: "var(--font-space-mono)" }}
+                  >
+                    DÜZENLE
+                  </button>
+                  {user.role !== "admin" && <DeleteUserButton userId={user.id} userName={user.name} />}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span
+                  className={`text-[10px] font-[700] tracking-[0.1em] uppercase px-2 py-1 ${user.role === "admin" ? "bg-[#FF4A00] text-[#F4F3F0]" : "border border-[#111111]"}`}
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                >
+                  {user.role}
                 </span>
-              ) : (
-                <span className="text-[11px] text-[#c4c7c7]" style={{ fontFamily: "var(--font-space-mono)" }}>—</span>
-              )}
-            </span>
-            <div className="col-span-2 flex items-center justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setEditUser(user)}
-                className="text-[11px] font-[700] tracking-[0.1em] uppercase text-[#111111] hover:text-[#FF4A00] transition-none"
-                style={{ fontFamily: "var(--font-space-mono)" }}
-              >
-                DÜZENLE
-              </button>
-              {user.role !== "admin" && <DeleteUserButton userId={user.id} userName={user.name} />}
+                {user.atolyeId ? (
+                  <span className="text-[10px] font-[700] tracking-[0.1em] uppercase bg-[#DFFF00] px-2 py-1" style={{ fontFamily: "var(--font-space-mono)" }}>
+                    {user.atolyeId}
+                  </span>
+                ) : (
+                  <span className="text-[11px] text-[#c4c7c7]" style={{ fontFamily: "var(--font-space-mono)" }}>Atölye atanmamış</span>
+                )}
+              </div>
             </div>
+
+            {/* Desktop row */}
+            <div className="hidden md:grid px-6 py-4 grid-cols-12 gap-4 items-center">
+              <span className="col-span-3 text-[14px] font-[700] text-[#111111] truncate" style={{ fontFamily: "var(--font-inter)" }}>
+                {user.name}
+              </span>
+              <span className="col-span-3 text-[12px] text-[#747878] truncate" style={{ fontFamily: "var(--font-space-mono)" }}>
+                {user.email}
+              </span>
+              <span className="col-span-2">
+                <span
+                  className={`text-[10px] font-[700] tracking-[0.1em] uppercase px-2 py-1 ${user.role === "admin" ? "bg-[#FF4A00] text-[#F4F3F0]" : "border border-[#111111]"}`}
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                >
+                  {user.role}
+                </span>
+              </span>
+              <span className="col-span-2">
+                {user.atolyeId ? (
+                  <span className="text-[10px] font-[700] tracking-[0.1em] uppercase bg-[#DFFF00] px-2 py-1" style={{ fontFamily: "var(--font-space-mono)" }}>
+                    {user.atolyeId}
+                  </span>
+                ) : (
+                  <span className="text-[11px] text-[#c4c7c7]" style={{ fontFamily: "var(--font-space-mono)" }}>—</span>
+                )}
+              </span>
+              <div className="col-span-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setEditUser(user)}
+                  className="text-[11px] font-[700] tracking-[0.1em] uppercase text-[#111111] hover:text-[#FF4A00] transition-none"
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                >
+                  DÜZENLE
+                </button>
+                {user.role !== "admin" && <DeleteUserButton userId={user.id} userName={user.name} />}
+              </div>
+            </div>
+
           </div>
         ))}
       </div>
