@@ -48,8 +48,16 @@ export default function AdminDashboardClient({
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 border border-[#111111]">
-          {stats.map((s, i) => (
-            <div key={s.label} className={`p-6 flex flex-col gap-2 ${i < stats.length - 1 ? "border-r border-[#111111]" : ""}`}>
+          {stats.map((s, i) => {
+            // Mobile 2×2: row separator between i=1→2, col separator for left column (i=0,2)
+            // Desktop 1×4: col separator for i=0,1,2
+            const borderClass = [
+              i === 0 ? "border-r border-b md:border-b-0 border-[#111111]" : "",
+              i === 1 ? "border-b md:border-b-0 md:border-r border-[#111111]" : "",
+              i === 2 ? "border-r border-[#111111]" : "",
+            ].join(" ");
+            return (
+            <div key={s.label} className={`p-6 flex flex-col gap-2 ${borderClass}`}>
               <span className="text-[36px] font-[900] tracking-[-0.03em] text-[#111111]" style={{ fontFamily: "var(--font-hanken)" }}>
                 {s.value}
               </span>
@@ -57,7 +65,8 @@ export default function AdminDashboardClient({
                 {s.label}
               </span>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
