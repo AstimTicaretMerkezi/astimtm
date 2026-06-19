@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import HaberdarOlModal from "./HaberdarOlModal";
 
 const heroImages = [
   { src: "/images/hero/hero-main.png",  alt: "ASTİM Ticaret Merkezi" },
@@ -10,6 +11,7 @@ const heroImages = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -19,6 +21,7 @@ export default function Hero() {
   }, []);
 
   return (
+    <>
     <section className="col-span-12 border-b border-[#111111] relative overflow-hidden flex flex-col md:flex-row">
       {/* Left — Text */}
       <div className="w-full md:w-1/2 p-[2rem] md:p-[2.5rem] flex flex-col justify-center border-r border-[#111111] bg-[#F4F3F0] relative z-10">
@@ -58,13 +61,14 @@ export default function Hero() {
 
         {/* CTA butonları */}
         <div className="flex flex-col gap-[12px] mt-auto">
-          <a
-            href="#haberdar"
+          <button
+            type="button"
+            onClick={() => setShowModal(true)}
             className="bg-[#111111] text-[#F4F3F0] px-10 py-[18px] text-[12px] leading-[16px] font-[700] uppercase hover:bg-[#FF4A00] transition-none inline-flex items-center gap-3 self-start"
             style={{ fontFamily: "var(--font-space-mono)" }}
           >
             HABERDAR OL →
-          </a>
+          </button>
         </div>
       </div>
 
@@ -120,5 +124,8 @@ export default function Hero() {
         </div>
       </div>
     </section>
+
+    {showModal && <HaberdarOlModal onClose={() => setShowModal(false)} />}
+  </>
   );
 }

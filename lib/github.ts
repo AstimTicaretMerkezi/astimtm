@@ -45,6 +45,22 @@ export async function saveUsers(users: User[], sha: string) {
   return putFile("data/users.json", { users }, sha, "chore: update users");
 }
 
+export type Subscriber = {
+  id: string;
+  name: string;
+  email: string;
+  subscribedAt: string;
+};
+
+export async function getSubscribers() {
+  const { content, sha } = await getFile("data/subscribers.json");
+  return { subscribers: content.subscribers as Subscriber[], sha };
+}
+
+export async function saveSubscribers(subscribers: Subscriber[], sha: string) {
+  return putFile("data/subscribers.json", { subscribers }, sha, "chore: update subscribers");
+}
+
 export async function getAtolyeler() {
   const { content, sha } = await getFile("data/atolyeler.json");
   return { atolyeler: content, sha };
