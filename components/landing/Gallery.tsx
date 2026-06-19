@@ -75,9 +75,9 @@ export default function Gallery() {
               <p className="text-[12px] leading-[16px] font-[700] text-[#FF4A00] mb-2 uppercase" style={{ fontFamily: "var(--font-space-mono)" }}>
                 {card.label}
               </p>
-              <h3 className="text-[28px] md:text-[48px] leading-tight font-[800] tracking-[-0.02em] uppercase group-hover:text-[#F4F3F0] transition-none" style={{ fontFamily: "var(--font-hanken)" }}>
+              <h2 className="text-[28px] md:text-[48px] leading-tight font-[800] tracking-[-0.02em] uppercase group-hover:text-[#F4F3F0] transition-none" style={{ fontFamily: "var(--font-hanken)" }}>
                 {card.title}
-              </h3>
+              </h2>
             </div>
             <div className="flex justify-between text-[12px] leading-[16px] font-[700] border-t border-[#111111] group-hover:border-[#F4F3F0]/20 pt-4 transition-none" style={{ fontFamily: "var(--font-space-mono)" }}>
               <span className="group-hover:text-[#F4F3F0]/60 transition-none">LOCATION: {card.location}</span>

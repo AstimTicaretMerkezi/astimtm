@@ -10,7 +10,7 @@ export default function HowToGet() {
           NASIL GELİNİR?
         </span>
         <span
-          className="text-[9px] tracking-[0.1em] uppercase text-[#747878]"
+          className="text-[9px] tracking-[0.1em] uppercase text-[#595C5C]"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
           LOCATION: ÇANAKKALE // MERKEZ
@@ -51,7 +51,7 @@ export default function HowToGet() {
                   className="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-[#111111] gap-1"
                 >
                   <span
-                    className="text-[9px] tracking-[0.15em] uppercase text-[#747878]"
+                    className="text-[9px] tracking-[0.15em] uppercase text-[#595C5C]"
                     style={{ fontFamily: "var(--font-space-mono)" }}
                   >
                     {item.label}
@@ -82,6 +82,7 @@ export default function HowToGet() {
         <div className="relative min-h-[400px]">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d788.9222922772549!2d26.45483170305124!3d40.14521043444345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1str!2str!4v1781804196876!5m2!1str!2str"
+            title="ASTİM Ticaret Merkezi - Google Haritalar"
             width="100%"
             height="100%"
             style={{ border: 0, position: "absolute", inset: 0 }}

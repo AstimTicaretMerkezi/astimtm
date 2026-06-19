@@ -4,12 +4,12 @@ export default function Footer() {
       {/* Left — Brand */}
       <div className="flex flex-col justify-between gap-[32px]">
         <div>
-          <h4
+          <p
             className="text-[48px] leading-[48px] font-[800] tracking-[-0.02em] text-[#FF4A00] mb-[16px] uppercase"
             style={{ fontFamily: "var(--font-hanken)" }}
           >
             ASTİM TİCARET
-          </h4>
+          </p>
           <p
             className="text-[14px] leading-[20px] font-[400] tracking-[0.02em] opacity-80 max-w-sm uppercase"
             style={{ fontFamily: "var(--font-space-mono)" }}
