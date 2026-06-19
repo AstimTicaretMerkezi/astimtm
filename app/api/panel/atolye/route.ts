@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { getAtolyeler, saveAtolyeler, parseFirmId } from "@/lib/github";
+import { getAtolyeler, saveAtolyeler, parseFirmId, getUsers } from "@/lib/github";
 import { NextResponse } from "next/server";
 
 const ALLOWED_FIELDS = [
@@ -16,8 +16,13 @@ const EMPTY_FIRM = {
 
 export async function PATCH(req: Request) {
   const session = await auth();
-  const atolyeId = session?.user?.atolyeId;
-  if (!session || !atolyeId) return NextResponse.json({ error: "Yetkisiz" }, { status: 403 });
+  if (!session?.user?.email) return NextResponse.json({ error: "Yetkisiz" }, { status: 403 });
+
+  // Her zaman DB'den oku — session token eski atolyeId taşıyor olabilir
+  const { users } = await getUsers();
+  const dbUser = users.find((u) => u.email === session.user!.email);
+  const atolyeId = dbUser?.atolyeId;
+  if (!atolyeId) return NextResponse.json({ error: "Atölye ataması bulunamadı." }, { status: 403 });
 
   const body = await req.json();
   const { atolyeler, sha } = await getAtolyeler();

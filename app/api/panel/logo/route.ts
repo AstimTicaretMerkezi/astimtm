@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { getUsers } from "@/lib/github";
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -10,8 +11,12 @@ cloudinary.config({
 
 export async function POST(req: Request) {
   const session = await auth();
-  const atolyeId = session?.user?.atolyeId;
-  if (!session || !atolyeId) return NextResponse.json({ error: "Yetkisiz" }, { status: 403 });
+  if (!session?.user?.email) return NextResponse.json({ error: "Yetkisiz" }, { status: 403 });
+
+  const { users } = await getUsers();
+  const dbUser = users.find((u) => u.email === session.user!.email);
+  const atolyeId = dbUser?.atolyeId;
+  if (!atolyeId) return NextResponse.json({ error: "Atölye ataması bulunamadı." }, { status: 403 });
 
   const formData = await req.formData();
   const file = formData.get("file") as File;
