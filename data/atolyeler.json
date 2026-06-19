@@ -1,6 +1,7 @@
 {
   "customCategories": [
-    "Kişisel Atölye"
+    "Kişisel Atölye",
+    "Otomotiv"
   ],
   "blocks": {
     "A": {
@@ -187,15 +188,26 @@
         {
           "id": "B-08",
           "no": 8,
-          "businessName": null,
-          "ownerName": null,
-          "category": null,
-          "logo": null,
-          "phone": null,
-          "website": null,
-          "instagram": null,
-          "description": null,
-          "isActive": false
+          "firms": [
+            {
+              "subId": 1,
+              "businessName": "Gurcoat Çanakkale",
+              "ownerName": "Kerem Meriç",
+              "contactPerson": "Kerem mERİÇ",
+              "category": "Otomotiv",
+              "logo": null,
+              "phone": "05407849893",
+              "website": null,
+              "instagram": "@gurcoat.canakkale",
+              "whatsapp": "05407849893",
+              "description": null,
+              "taxNumber": null,
+              "address": "B Blok No 6",
+              "workingHours": "Pzt: 09:00-18:00, Sal: 09:00-18:00, Çar: 09:00-18:00, Per: 09:00-18:00, Cum: 09:00-18:00, Cmt: Kapalı, Paz: Kapalı",
+              "brands": [],
+              "isActive": true
+            }
+          ]
         },
         {
           "id": "B-09",
