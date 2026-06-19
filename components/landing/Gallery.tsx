@@ -34,43 +34,8 @@ export default function Gallery() {
   return (
     <section id="galeri" className="md:col-span-12 border-b border-[#111111] bg-[#F4F3F0] flex flex-col">
 
-      {/* Alt kartlar — mobilde üstte */}
-      <div className="grid grid-cols-1 md:grid-cols-2 border-b border-[#111111]">
-        {cards.map((card, idx) => (
-          <a
-            key={card.id}
-            href={card.href}
-            className={`p-8 md:p-10 min-h-[180px] md:min-h-[260px] flex flex-col justify-between gap-4 group hover:bg-[#111111] transition-none ${
-              idx === 0 ? "border-b md:border-b-0 md:border-r border-[#111111]" : ""
-            }`}
-          >
-            <div>
-              <p
-                className="text-[12px] leading-[16px] font-[700] text-[#FF4A00] mb-2 uppercase"
-                style={{ fontFamily: "var(--font-space-mono)" }}
-              >
-                {card.label}
-              </p>
-              <h3
-                className="text-[28px] md:text-[48px] leading-tight font-[800] tracking-[-0.02em] uppercase group-hover:text-[#F4F3F0] transition-none"
-                style={{ fontFamily: "var(--font-hanken)" }}
-              >
-                {card.title}
-              </h3>
-            </div>
-            <div
-              className="flex justify-between text-[12px] leading-[16px] font-[700] border-t border-[#111111] group-hover:border-[#F4F3F0]/20 pt-4 transition-none"
-              style={{ fontFamily: "var(--font-space-mono)" }}
-            >
-              <span className="group-hover:text-[#F4F3F0]/60 transition-none">LOCATION: {card.location}</span>
-              <span className="group-hover:text-[#F4F3F0]/60 transition-none">ID: {card.id}/{card.total}</span>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      {/* Fotoğraf şeridi — mobilde altta, büyük */}
-      <div className="grid grid-cols-3">
+      {/* Fotoğraf şeridi — her zaman üstte */}
+      <div className="grid grid-cols-3 border-b border-[#111111]">
         {photos.map((photo, i) => (
           <button
             key={photo.src}
@@ -93,6 +58,32 @@ export default function Gallery() {
               </div>
             </div>
           </button>
+        ))}
+      </div>
+
+      {/* Kartlar — fotoğrafların altında */}
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {cards.map((card, idx) => (
+          <a
+            key={card.id}
+            href={card.href}
+            className={`p-8 md:p-10 min-h-[180px] md:min-h-[260px] flex flex-col justify-between gap-4 group hover:bg-[#111111] transition-none ${
+              idx === 0 ? "border-b md:border-b-0 md:border-r border-[#111111]" : ""
+            }`}
+          >
+            <div>
+              <p className="text-[12px] leading-[16px] font-[700] text-[#FF4A00] mb-2 uppercase" style={{ fontFamily: "var(--font-space-mono)" }}>
+                {card.label}
+              </p>
+              <h3 className="text-[28px] md:text-[48px] leading-tight font-[800] tracking-[-0.02em] uppercase group-hover:text-[#F4F3F0] transition-none" style={{ fontFamily: "var(--font-hanken)" }}>
+                {card.title}
+              </h3>
+            </div>
+            <div className="flex justify-between text-[12px] leading-[16px] font-[700] border-t border-[#111111] group-hover:border-[#F4F3F0]/20 pt-4 transition-none" style={{ fontFamily: "var(--font-space-mono)" }}>
+              <span className="group-hover:text-[#F4F3F0]/60 transition-none">LOCATION: {card.location}</span>
+              <span className="group-hover:text-[#F4F3F0]/60 transition-none">ID: {card.id}/{card.total}</span>
+            </div>
+          </a>
         ))}
       </div>
 
