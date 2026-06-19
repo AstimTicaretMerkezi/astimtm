@@ -110,7 +110,7 @@ function SifreDegistirModal({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center" onClick={onClose}>
+    <div className="fixed inset-0 z-[200] flex items-center justify-center">
       <div className="absolute inset-0 bg-[#111111]/70" />
       <div className="relative z-10 w-full max-w-sm mx-4 border border-[#111111] bg-[#F4F3F0]" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
