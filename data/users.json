@@ -1,1 +1,49 @@
-{"users":[{"id":"u-001","name":"AstimAdmin","email":"admin@astim.com","passwordHash":"$2b$12$pg1FObjrZMFNcIOpcsCmlu9Z1dLxzXELAqoAdLswqQ6gCHBlJpReG","role":"admin","atolyeId":null,"createdAt":"2026-06-17"},{"id":"u-1781690763287","name":"Okan KAYA","email":"kayaokn@gmail.com","passwordHash":"$2b$10$mUX9hifnTF35HVSvs6z2pe917rmdMX8aMJYSEjRVtc5d3cqesP1S2","role":"mülk-sahibi","atolyeId":"B-04","createdAt":"2026-06-17"},{"id":"u-1781811819268","name":"Süleyman Yılmaz","email":"Suleyman@awesomebroduction.com","passwordHash":"$2b$12$NJYu/XQL4uMrx.jglW5DW.Thd1yd092fAEwB5hm7FORMFAfWSzrPi","role":"mülk-sahibi","atolyeId":"C-06","createdAt":"2026-06-18"},{"id":"u-1781812497364","name":"Kerem Meriç","email":"Keremvolkanmeric@gmail.com","passwordHash":"$2b$12$BTSkQ5fgvwNEUUQtZYC1deAShypKqp6vDbDZviIH/oMjkr9ZXxMMq","role":"kiracı","atolyeId":"B-06","createdAt":"2026-06-18"},{"id":"u-1781814633484","name":"Şerif Ali Yıldız","email":"aliserif1717@gmail.com","passwordHash":"$2b$12$bGlS78MoyeKG3fRJ7OyrtOO6sEjHTHjjxphrM4lxXL6X4eWH5wgV2","role":"mülk-sahibi","atolyeId":"C-05","createdAt":"2026-06-18"}]}
+{
+  "users": [
+    {
+      "id": "u-001",
+      "name": "AstimAdmin",
+      "email": "admin@astim.com",
+      "passwordHash": "$2b$12$pg1FObjrZMFNcIOpcsCmlu9Z1dLxzXELAqoAdLswqQ6gCHBlJpReG",
+      "role": "admin",
+      "atolyeId": null,
+      "createdAt": "2026-06-17"
+    },
+    {
+      "id": "u-1781690763287",
+      "name": "Okan KAYA",
+      "email": "kayaokn@gmail.com",
+      "passwordHash": "$2b$10$mUX9hifnTF35HVSvs6z2pe917rmdMX8aMJYSEjRVtc5d3cqesP1S2",
+      "role": "mülk-sahibi",
+      "atolyeId": "B-04",
+      "createdAt": "2026-06-17"
+    },
+    {
+      "id": "u-1781811819268",
+      "name": "Süleyman Yılmaz",
+      "email": "Suleyman@awesomebroduction.com",
+      "passwordHash": "$2b$12$NJYu/XQL4uMrx.jglW5DW.Thd1yd092fAEwB5hm7FORMFAfWSzrPi",
+      "role": "mülk-sahibi",
+      "atolyeId": "C-06",
+      "createdAt": "2026-06-18"
+    },
+    {
+      "id": "u-1781812497364",
+      "name": "Kerem Meriç",
+      "email": "Keremvolkanmeric@gmail.com",
+      "passwordHash": "$2b$12$BTSkQ5fgvwNEUUQtZYC1deAShypKqp6vDbDZviIH/oMjkr9ZXxMMq",
+      "role": "kiracı",
+      "atolyeId": "B-06",
+      "createdAt": "2026-06-18"
+    },
+    {
+      "id": "u-1781814633484",
+      "name": "Şerif Ali Yıldız",
+      "email": "aliserif1717@gmail.com",
+      "passwordHash": "$2b$12$bGlS78MoyeKG3fRJ7OyrtOO6sEjHTHjjxphrM4lxXL6X4eWH5wgV2",
+      "role": "mülk-sahibi",
+      "atolyeId": "C-05",
+      "createdAt": "2026-06-18"
+    }
+  ]
+}
