@@ -28,19 +28,19 @@ export default function AdminDashboardClient({
   return (
     <>
       <div className="flex flex-col gap-8">
-        <div className="border-b border-[#111111] pb-6 flex items-end justify-between">
+        <div className="border-b border-[#111111] pb-6 flex items-end justify-between gap-4">
           <div>
             <p className="text-[10px] tracking-[0.2em] uppercase text-[#FF4A00] mb-1" style={{ fontFamily: "var(--font-space-mono)" }}>
               YÖNETİM PANELİ
             </p>
-            <h1 className="text-[40px] font-[900] tracking-[-0.03em] uppercase" style={{ fontFamily: "var(--font-hanken)" }}>
+            <h1 className="text-[28px] md:text-[40px] font-[900] tracking-[-0.03em] uppercase" style={{ fontFamily: "var(--font-hanken)" }}>
               GENEL BAKIŞ
             </h1>
           </div>
           <button
             type="button"
             onClick={() => setShowModal(true)}
-            className="bg-[#111111] text-[#F4F3F0] px-6 py-3 text-[11px] font-[700] tracking-[0.1em] uppercase hover:bg-[#FF4A00] transition-none"
+            className="flex-shrink-0 bg-[#111111] text-[#F4F3F0] px-4 py-3 text-[10px] md:text-[11px] md:px-6 font-[700] tracking-[0.1em] uppercase hover:bg-[#FF4A00] transition-none"
             style={{ fontFamily: "var(--font-space-mono)" }}
           >
             + YENİ KULLANICI
