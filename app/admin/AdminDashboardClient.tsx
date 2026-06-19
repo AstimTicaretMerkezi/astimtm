@@ -108,12 +108,12 @@ export default function AdminDashboardClient({
             </Link>
           </div>
           {recentUsers.map((user, i) => (
-            <div key={user.id} className={`px-6 py-4 flex items-center justify-between ${i < recentUsers.length - 1 ? "border-b border-[#111111]" : ""}`}>
-              <div className="flex flex-col gap-0.5">
-                <span className="text-[14px] font-[700] text-[#111111]" style={{ fontFamily: "var(--font-inter)" }}>{user.name}</span>
-                <span className="text-[11px] text-[#747878]" style={{ fontFamily: "var(--font-space-mono)" }}>{user.email}</span>
+            <div key={user.id} className={`px-5 md:px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2 ${i < recentUsers.length - 1 ? "border-b border-[#111111]" : ""}`}>
+              <div className="flex flex-col gap-0.5 min-w-0">
+                <span className="text-[14px] font-[700] text-[#111111] truncate" style={{ fontFamily: "var(--font-inter)" }}>{user.name}</span>
+                <span className="text-[11px] text-[#747878] truncate" style={{ fontFamily: "var(--font-space-mono)" }}>{user.email}</span>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 flex-wrap flex-shrink-0">
                 {user.atolyeId && (
                   <span className="text-[10px] font-[700] tracking-[0.1em] uppercase bg-[#DFFF00] px-2 py-1" style={{ fontFamily: "var(--font-space-mono)" }}>
                     {user.atolyeId}
