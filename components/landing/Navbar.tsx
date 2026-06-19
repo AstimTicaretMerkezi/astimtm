@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="hidden md:flex gap-4 items-center">
           {[
             { label: "ATÖLYELERİMİZ", href: "/atolyeler" },
-            { label: "İLETİŞİM", href: "#konum" },
+            { label: "İLETİŞİM", href: "/#konum" },
           ].map((item) => (
             <a
               key={item.label}
@@ -87,7 +87,7 @@ export default function Navbar() {
             ATÖLYELERİMİZ
           </a>
           <a
-            href="#konum"
+            href="/#konum"
             onClick={() => setMenuOpen(false)}
             className="px-8 py-5 text-[12px] font-[700] uppercase tracking-widest border-b border-[#111111] hover:bg-[#111111] hover:text-[#F4F3F0] transition-none"
             style={{ fontFamily: "var(--font-space-mono)" }}
