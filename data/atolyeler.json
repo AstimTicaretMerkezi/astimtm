@@ -36,8 +36,8 @@
               "address": null,
               "workingHours": null,
               "brands": [],
-              "isActive": false,
-              "isActiveOverride": false
+              "isActive": true,
+              "isActiveOverride": null
             }
           ]
         },
