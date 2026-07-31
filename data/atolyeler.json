@@ -27,7 +27,7 @@
               "contactPerson": null,
               "category": null,
               "logo": null,
-              "phone": "05550001122",
+              "phone": null,
               "website": null,
               "instagram": null,
               "whatsapp": null,
@@ -37,7 +37,7 @@
               "workingHours": null,
               "brands": [],
               "isActive": true,
-              "isActiveOverride": null
+              "isActiveOverride": true
             }
           ]
         },
