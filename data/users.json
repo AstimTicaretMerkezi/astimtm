@@ -44,15 +44,6 @@
       "role": "mülk-sahibi",
       "atolyeId": "C-05",
       "createdAt": "2026-06-18"
-    },
-    {
-      "id": "u-1785516920094",
-      "name": "Test Kiraci",
-      "email": "test.case@example.com",
-      "passwordHash": "$2b$12$UGE.gmvNRcuPKB5/l//wzugCJO7LLT4JT0XAiITxPj2A9dw1ZleaW",
-      "role": "kiracı",
-      "atolyeId": "A-01",
-      "createdAt": "2026-07-31"
     }
   ]
 }
