@@ -19,27 +19,7 @@
           "instagram": null,
           "description": null,
           "isActive": false,
-          "firms": [
-            {
-              "subId": 1,
-              "businessName": "TEST Atolye",
-              "ownerName": null,
-              "contactPerson": null,
-              "category": null,
-              "logo": "https://res.cloudinary.com/days4cluv/image/upload/v1785517065/astimtm/logos/firm-10cdb167-7bcf-4c5d-9324-6c4bc3f17220.png",
-              "phone": "05550001122",
-              "website": null,
-              "instagram": null,
-              "whatsapp": null,
-              "description": "kiraci notu",
-              "taxNumber": null,
-              "address": null,
-              "workingHours": null,
-              "brands": [],
-              "isActive": true,
-              "isActiveOverride": null
-            }
-          ]
+          "firms": []
         },
         {
           "id": "A-02",
