@@ -22,7 +22,7 @@
           "firms": [
             {
               "subId": 1,
-              "businessName": null,
+              "businessName": "TEST Atolye",
               "ownerName": null,
               "contactPerson": null,
               "category": null,
