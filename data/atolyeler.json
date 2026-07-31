@@ -26,8 +26,8 @@
               "ownerName": null,
               "contactPerson": null,
               "category": null,
-              "logo": null,
-              "phone": null,
+              "logo": "https://res.cloudinary.com/days4cluv/image/upload/v1785516977/astimtm/logos/firm-bcb44b4e-7961-4132-8305-9761eea4bd97.png",
+              "phone": "05550001122",
               "website": null,
               "instagram": null,
               "whatsapp": null,
@@ -37,7 +37,7 @@
               "workingHours": null,
               "brands": [],
               "isActive": true,
-              "isActiveOverride": true
+              "isActiveOverride": null
             }
           ]
         },
